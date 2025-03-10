@@ -1,0 +1,13 @@
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.csproj.AssemblyReference.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.AssemblyInfoInputs.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.AssemblyInfo.cs
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.csproj.CoreCompileInputs.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.sourcelink.json
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\bin\Debug\net8.0\CITIES.deps.json
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\bin\Debug\net8.0\CITIES.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\bin\Debug\net8.0\CITIES.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\refint\CITIES.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\CITIES.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\CITIES\obj\Debug\net8.0\ref\CITIES.dll

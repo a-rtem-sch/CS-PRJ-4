@@ -1,0 +1,16 @@
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.csproj.AssemblyReference.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.AssemblyInfoInputs.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.AssemblyInfo.cs
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.csproj.CoreCompileInputs.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.sourcelink.json
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\bin\Debug\net8.0\PARSING.deps.json
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\bin\Debug\net8.0\PARSING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\bin\Debug\net8.0\PARSING.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\bin\Debug\net8.0\CITIES.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\bin\Debug\net8.0\CITIES.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.csproj.Up2Date
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\refint\PARSING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\ref\PARSING.dll

@@ -15,3 +15,8 @@ C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\obj\Debug\net8.0\ref\CS-PRO
 C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\Spectre.Console.dll
 C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\obj\Debug\net8.0\CS-PROJ-4.csproj.AssemblyReference.cache
 C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\obj\Debug\net8.0\CS-PROJ-4.csproj.Up2Date
+C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\obj\Debug\net8.0\CS-PROJ-4.sourcelink.json
+C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\CITIES.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\PARSING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\CITIES.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\PARSING.pdb
