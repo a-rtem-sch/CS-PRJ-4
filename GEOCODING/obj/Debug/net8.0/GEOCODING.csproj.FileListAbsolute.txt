@@ -1,0 +1,13 @@
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\bin\Debug\net8.0\GEOCODING.deps.json
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\bin\Debug\net8.0\GEOCODING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\bin\Debug\net8.0\GEOCODING.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.csproj.AssemblyReference.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.AssemblyInfoInputs.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.AssemblyInfo.cs
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.csproj.CoreCompileInputs.cache
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.sourcelink.json
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\refint\GEOCODING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\GEOCODING.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\GEOCODING\obj\Debug\net8.0\ref\GEOCODING.dll

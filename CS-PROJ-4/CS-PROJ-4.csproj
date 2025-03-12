@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CITIES\CITIES.csproj" />
+    <ProjectReference Include="..\GEOCODING\GEOCODING.csproj" />
     <ProjectReference Include="..\PARSING\PARSING.csproj" />
   </ItemGroup>
 

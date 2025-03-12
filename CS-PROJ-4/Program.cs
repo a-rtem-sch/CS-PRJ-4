@@ -2,6 +2,7 @@
 using CITIES;
 using PARSING;
 using System.Text;
+using GEOCODING;
 
 namespace CS_PROJ_4
 {
@@ -37,7 +38,7 @@ namespace CS_PROJ_4
                 var choices = new List<string>
                 {
                     "Просмотреть список городов",
-                    "Выбрать город",
+                    "Информация о городе",
                     "Добавить город",
                     "Редактировать город",
                     "Удалить город"
@@ -58,7 +59,7 @@ namespace CS_PROJ_4
                     case "Просмотреть список городов":
                         cityDisplay.DisplayCitiesTable();
                         break;
-                    case "Выбрать город":
+                    case "Информация о городе":
                         cityDisplay.SelectAndDisplayCity(cityCollection);
                         break;
                     case "Добавить город":
@@ -74,7 +75,7 @@ namespace CS_PROJ_4
                         Console.Clear();
                         foreach (string s in errorLines)
                         {
-                            AnsiConsole.MarkupLine($"Строка:: [yellow]\"{s.Split("#")[0]}\"[/], причина:: {s.Split("#")[1]}");
+                            AnsiConsole.MarkupLine($"Строка:: [yellow]\"{s.Split("##")[0]}\"[/], причина:: {s.Split("#")[1]}");
                         }
                         AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
                         Console.ReadKey(intercept: true);

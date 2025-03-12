@@ -37,7 +37,7 @@ namespace PARSING
                                     Longitude = longitude
                                 };
 
-                                if (parts.Length > 4 && long.TryParse(parts[2].Trim(), out var population))
+                                if (parts.Length > 4 && ulong.TryParse(parts[2].Trim(), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var population))
                                 {
                                     city.Population = population;
                                 }
@@ -47,7 +47,7 @@ namespace PARSING
                             else
                             {
                                 //AnsiConsole.MarkupLine($"[yellow]Пропущена строка \"{line}\": некорректные координаты.[/]");
-                                errors.Add(line + "#неверный формат координат");
+                                errors.Add(line + "##неверный формат координат");
                             }
                         }
                     }

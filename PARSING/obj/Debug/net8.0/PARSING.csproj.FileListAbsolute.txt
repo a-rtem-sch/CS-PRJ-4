@@ -14,3 +14,5 @@ C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.dll
 C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\refint\PARSING.dll
 C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\PARSING.pdb
 C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\obj\Debug\net8.0\ref\PARSING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\bin\Debug\net8.0\GEOCODING.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\PARSING\bin\Debug\net8.0\GEOCODING.pdb

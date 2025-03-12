@@ -1,4 +1,7 @@
-﻿using Spectre.Console;
+﻿using GEOCODING;
+using Spectre.Console;
+using System.Diagnostics.Metrics;
+using System.Xml.Linq;
 
 namespace CITIES
 {
@@ -69,15 +72,28 @@ namespace CITIES
                 AnsiConsole.MarkupLine("[red]Город не найден.[/]");
             }
         }
-
         public void DisplayCityInfo(City city)
         {
+            var data = GeocodingFillers.ReverseGeocode(city.Latitude, city.Longitude);
+
             AnsiConsole.MarkupLine("[bold underline]Информация о городе:[/]");
             AnsiConsole.MarkupLine($"[bold]Название:[/] {city.Name}");
             AnsiConsole.MarkupLine($"[bold]Страна:[/] {city.Country}");
             AnsiConsole.MarkupLine($"[bold]Население:[/] {(city.Population.HasValue ? city.Population.Value.ToString("N0") : "N/A")}");
             AnsiConsole.MarkupLine($"[bold]Координаты:[/] Широта: {city.Latitude}, Долгота: {city.Longitude}");
-            AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
+
+            // Вывод дополнительной информации из JSON
+            if (data != null)
+            {
+                AnsiConsole.MarkupLine("[bold underline]Дополнительная информация (обратное геокодирование по широте и долготе):[/]");
+                AnsiConsole.MarkupLine($"[bold]Полное название:[/] {data.Display_Name}");
+                AnsiConsole.MarkupLine($"[bold]Тип объекта:[/] {data.Name}");
+                AnsiConsole.MarkupLine($"[bold]Адрес:[/] {data.Address?.Road} {data.Address?.House_Number}, {data.Address?.City}, {data.Address?.Country}");
+                AnsiConsole.MarkupLine($"[bold]Почтовый индекс:[/] {data.Address?.Postcode}");
+                AnsiConsole.MarkupLine($"[bold]Границы:[/] Широта: {data.Boundingbox?[0]} - {data.Boundingbox?[1]}, Долгота: {data.Boundingbox?[2]} - {data.Boundingbox?[3]}");
+            }
+
+            AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
         }

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GEOCODING;
+using System.Net.Http.Json;
+using System.Globalization;
 
 namespace CITIES
 {
@@ -18,28 +21,100 @@ namespace CITIES
 
         public void AddCity()
         {
+            AddCityAsync().GetAwaiter().GetResult();
+        }
+        public async Task AddCityAsync()
+        {
             var name = AnsiConsole.Ask<string>("Введите название города:");
             var country = AnsiConsole.Ask<string>("Введите страну:");
-            var population = AnsiConsole.Prompt(
-                new TextPrompt<string>("Введите население (опционально, нажмите Enter чтобы пропустить):")
-                    .AllowEmpty());
-            var latitude = AnsiConsole.Ask<double>("Введите широту:");
-            var longitude = AnsiConsole.Ask<double>("Введите долготу:");
+            
+            ulong? population = GetPopulationInput();
 
-            var city = new City
+
+            // Автоматическое определение координат
+            var coordinates = await GeocodingService.GeocodeAsync($"{name}, {country}");
+
+            double latitude, longitude;
+
+            if (coordinates.HasValue)
+            {
+                AnsiConsole.MarkupLine($"[green]Найдены координаты: {coordinates.Value.Latitude}, {coordinates.Value.Longitude}[/]");
+                bool confirm = AnsiConsole.Confirm("Подтвердить эти координаты?");
+
+                if (confirm)
+                {
+                    latitude = coordinates.Value.Latitude;
+                    longitude = coordinates.Value.Longitude;
+                }
+                else
+                {
+                    latitude = AnsiConsole.Ask<double>("Введите широту вручную:");
+                    longitude = AnsiConsole.Ask<double>("Введите долготу вручную:");
+                }
+            }
+            else
+            {
+                AnsiConsole.MarkupLine("[yellow]Координаты не найдены. Введите их вручную.[/]");
+                latitude = AnsiConsole.Prompt(
+                                                new TextPrompt<double>("Введите широту:")
+                                                  .Validate((n) => n switch
+                                                  {
+                                                      < -90 => ValidationResult.Error("[red]Широта не может быть меньше -90.[/]"),
+                                                      > 90 => ValidationResult.Error("[red]Широта не может быть больше 90.[/]"),
+                                                      _ => ValidationResult.Success()
+                                                  })
+);
+                longitude = AnsiConsole.Prompt(
+                                                new TextPrompt<double>("Введите долготу: ")
+                                                  .Validate((n) => n switch
+                                                  {
+                                                      < -180 => ValidationResult.Error("[red]Долгота не может быть меньше -180.[/]"),
+                                                      > 180 => ValidationResult.Error("[red]Долгота не может быть больше 180.[/]"),
+                                                      _ => ValidationResult.Success()
+                                                  })
+);
+            }
+
+            City city = new City
             {
                 Name = name,
                 Country = country,
-                Population = string.IsNullOrEmpty(population) ? null : (long?)long.Parse(population),
+                Population = population,
                 Latitude = latitude,
                 Longitude = longitude
             };
 
             _cityCollection.AddCity(city);
-            AnsiConsole.MarkupLine("[green]Город успешно добавлен. Нажмите любую класишу для продолжения:[/]");
-            Console.ReadKey(intercept:true);
+            AnsiConsole.MarkupLine("[green]Город успешно добавлен. Нажмите любую клавишу для продолжения:[/]");
+            Console.ReadKey(intercept: true);
             Console.Clear();
         }
+
+
+        ulong? GetPopulationInput()
+        {
+            while (true)
+            {
+                string populationInput = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Введите население (опционально, нажмите Enter чтобы пропустить):")
+                        .AllowEmpty()
+                );
+
+                if (string.IsNullOrEmpty(populationInput))
+                {
+                    return null;
+                }
+
+                if (ulong.TryParse(populationInput, NumberStyles.Any, CultureInfo.InvariantCulture, out ulong population))
+                {
+                    return population;
+                }
+
+                AnsiConsole.MarkupLine("[red]Некорректный формат числа. Пожалуйста, введите число.[/]");
+            }
+        }
+
+        
 
         public void EditCity()
         {
@@ -65,10 +140,7 @@ namespace CITIES
             city.Country = AnsiConsole.Prompt(
                 new TextPrompt<string>("Введите новую страну:")
                     .DefaultValue(city.Country));
-            city.Population = long.Parse(AnsiConsole.Prompt(
-                new TextPrompt<string>("Введите новое население (опционально, нажмите Enter чтобы пропустить):")
-                    .AllowEmpty()
-                    .DefaultValue(city.Population?.ToString() ?? "")));
+            city.Population = GetPopulationInput();
             city.Latitude = AnsiConsole.Prompt(
                 new TextPrompt<double>("Введите новую широту:")
                     .DefaultValue(city.Latitude));
