@@ -32,6 +32,9 @@ namespace CITIES
             }
 
             AnsiConsole.Write(table);
+            AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
+            Console.ReadKey(intercept: true);
+            Console.Clear();
         }
 
         public void SelectAndDisplayCity(CityCollection cityCollection)
@@ -74,6 +77,9 @@ namespace CITIES
             AnsiConsole.MarkupLine($"[bold]Страна:[/] {city.Country}");
             AnsiConsole.MarkupLine($"[bold]Население:[/] {(city.Population.HasValue ? city.Population.Value.ToString("N0") : "N/A")}");
             AnsiConsole.MarkupLine($"[bold]Координаты:[/] Широта: {city.Latitude}, Долгота: {city.Longitude}");
+            AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
+            Console.ReadKey(intercept: true);
+            Console.Clear();
         }
     }
 }

@@ -71,10 +71,14 @@ namespace CS_PROJ_4
                         cityManager.DeleteCity();
                         break;
                     case "Просмотреть пропущенные строки":
+                        Console.Clear();
                         foreach (string s in errorLines)
                         {
                             AnsiConsole.MarkupLine($"Строка:: [yellow]\"{s.Split("#")[0]}\"[/], причина:: {s.Split("#")[1]}");
                         }
+                        AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
+                        Console.ReadKey(intercept: true);
+                        Console.Clear();
                         break;
                     case "Выйти и сохранить":
                         fileHandler.SaveCitiesToFile(filePath, cityCollection.Cities);

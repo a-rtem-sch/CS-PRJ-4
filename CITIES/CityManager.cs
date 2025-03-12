@@ -43,14 +43,21 @@ namespace CITIES
 
         public void EditCity()
         {
-            var name = AnsiConsole.Ask<string>("Введите название города для редактирования:");
-            var city = _cityCollection.GetCityByName(name);
+            //string name = AnsiConsole.Ask<string>("Введите название города для редактирования:");
+            //City city = _cityCollection.GetCityByName(name);
 
-            if (city == null)
+            var cityNames = _cityCollection.Cities.Select(c => c.Name).ToList();
+            cityNames.Add("Назад");
+            string selectedCityName = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Выберите город:")
+                    .AddChoices(cityNames));
+
+            if (selectedCityName == "Назад")
             {
-                AnsiConsole.MarkupLine("[red]Город не найден.[/]");
                 return;
             }
+            City city = _cityCollection.GetCityByName(selectedCityName);
 
             city.Name = AnsiConsole.Prompt(
                 new TextPrompt<string>("Введите новое название города:")
@@ -69,14 +76,31 @@ namespace CITIES
                 new TextPrompt<double>("Введите новую долготу:")
                     .DefaultValue(city.Longitude));
 
-            AnsiConsole.MarkupLine("[green]Информация о городе успешно обновлена.[/]");
+            AnsiConsole.MarkupLine("[green]Информация о городе успешно обновлена. Нажмите любую класишу для продолжения:[/]");
+            Console.ReadKey(intercept: true);
+            Console.Clear();
         }
 
         // Удаление города
         public void DeleteCity()
         {
-            var name = AnsiConsole.Ask<string>("Введите название города для удаления:");
-            _cityCollection.DeleteCity(name);
+            var cityNames = _cityCollection.Cities.Select(c => c.Name).ToList();
+            cityNames.Add("Назад");
+            string selectedCityName = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Выберите город:")
+                    .AddChoices(cityNames));
+
+            if (selectedCityName == "Назад")
+            {
+                return;
+            }
+           
+
+            _cityCollection.DeleteCity(selectedCityName);
+            AnsiConsole.MarkupLine("[green]Город успешно удален. Нажмите любую класишу для продолжения:[/]");
+            Console.ReadKey(intercept: true);
+            Console.Clear();
         }
     }
 }

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "uFQEu3p7Y0o=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Артем\\.nuget\\packages\\system.io.pipelines\\9.0.3\\system.io.pipelines.9.0.3.nupkg.sha512",
+    "C:\\Users\\Артем\\.nuget\\packages\\system.net.http.json\\9.0.3\\system.net.http.json.9.0.3.nupkg.sha512",
+    "C:\\Users\\Артем\\.nuget\\packages\\system.text.encodings.web\\9.0.3\\system.text.encodings.web.9.0.3.nupkg.sha512",
+    "C:\\Users\\Артем\\.nuget\\packages\\system.text.json\\9.0.3\\system.text.json.9.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

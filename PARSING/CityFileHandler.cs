@@ -47,7 +47,7 @@ namespace PARSING
                             else
                             {
                                 //AnsiConsole.MarkupLine($"[yellow]Пропущена строка \"{line}\": некорректные координаты.[/]");
-                                errors.Add(line + "#Координаты заданы неверно");
+                                errors.Add(line + "#неверный формат координат");
                             }
                         }
                     }

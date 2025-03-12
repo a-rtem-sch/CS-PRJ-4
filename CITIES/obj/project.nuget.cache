@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "QR8kyaj5DG8=",
+  "dgSpecHash": "2pkd+riFWc8=",
   "success": true,
   "projectFilePath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Артем\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
+    "C:\\Users\\Артем\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512",
+    "C:\\Users\\Артем\\.nuget\\packages\\system.io.pipelines\\9.0.3\\system.io.pipelines.9.0.3.nupkg.sha512",
+    "C:\\Users\\Артем\\.nuget\\packages\\system.net.http.json\\9.0.3\\system.net.http.json.9.0.3.nupkg.sha512",
+    "C:\\Users\\Артем\\.nuget\\packages\\system.text.encodings.web\\9.0.3\\system.text.encodings.web.9.0.3.nupkg.sha512",
+    "C:\\Users\\Артем\\.nuget\\packages\\system.text.json\\9.0.3\\system.text.json.9.0.3.nupkg.sha512"
   ],
   "logs": []
 }
