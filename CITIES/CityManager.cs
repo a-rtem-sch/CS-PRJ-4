@@ -16,7 +16,6 @@ namespace CITIES
             _cityCollection = cityCollection;
         }
 
-        // Добавление города
         public void AddCity()
         {
             var name = AnsiConsole.Ask<string>("Введите название города:");
@@ -37,10 +36,11 @@ namespace CITIES
             };
 
             _cityCollection.AddCity(city);
-            AnsiConsole.MarkupLine("[green]Город успешно добавлен.[/]");
+            AnsiConsole.MarkupLine("[green]Город успешно добавлен. Нажмите любую класишу для продолжения:[/]");
+            Console.ReadKey(intercept:true);
+            Console.Clear();
         }
 
-        // Редактирование города
         public void EditCity()
         {
             var name = AnsiConsole.Ask<string>("Введите название города для редактирования:");

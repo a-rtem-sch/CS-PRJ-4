@@ -1,34 +1,54 @@
 ﻿using Spectre.Console;
 using CITIES;
+using System.Globalization;
 
 namespace PARSING
 {
     public class CityFileHandler
     {
         // Чтение городов из CSV
-        public List<City> ReadCitiesFromFile(string filePath)
+        public (List<City>, List<string>) ReadCitiesFromFile(string filePath)
         {
-            var cities = new List<City>();
+            List<City> cities = new List<City>();
+            List<string> errors = new List<string>();
 
             try
             {
-                using (var reader = new StreamReader(filePath))
+                
+                string absolutePath = Path.GetFullPath(filePath);
+                using (var reader = new StreamReader(absolutePath))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
+
                         var parts = line.Split(',');
+
                         if (parts.Length >= 4)
                         {
-                            var city = new City
+                            if (double.TryParse(parts[parts.Length - 2].Trim().Replace('.', ','), out var latitude) &&
+                                double.TryParse(parts[parts.Length - 1].Trim().Replace('.', ','), out var longitude))
                             {
-                                Name = parts[0],
-                                Country = parts[1],
-                                Population = parts.Length > 2 && long.TryParse(parts[2], out var population) ? population : (long?)null,
-                                Latitude = double.Parse(parts[3]),
-                                Longitude = double.Parse(parts[4])
-                            };
-                            cities.Add(city);
+                                var city = new City
+                                {
+                                    Name = parts[0].Trim(),
+                                    Country = parts[1].Trim(),
+                                    Latitude = latitude,
+                                    Longitude = longitude
+                                };
+
+                                if (parts.Length > 4 && long.TryParse(parts[2].Trim(), out var population))
+                                {
+                                    city.Population = population;
+                                }
+
+                                cities.Add(city);
+                            }
+                            else
+                            {
+                                //AnsiConsole.MarkupLine($"[yellow]Пропущена строка \"{line}\": некорректные координаты.[/]");
+                                errors.Add(line + "#Координаты заданы неверно");
+                            }
                         }
                     }
                 }
@@ -37,8 +57,11 @@ namespace PARSING
             {
                 AnsiConsole.MarkupLine($"[red]Ошибка при чтении файла: {ex.Message}[/]");
             }
-
-            return cities;
+            if (errors.Count > 0)
+            {
+                AnsiConsole.MarkupLine($"[yellow]Пропущены одна или более строк данных.\nПодробнее в разделе \"Просмотреть пропущенные строки\"[/]");
+            }
+            return (cities, errors);
         }
 
         // Сохранение городов в файл
@@ -46,11 +69,18 @@ namespace PARSING
         {
             try
             {
-                using (var writer = new StreamWriter(filePath))
+                string absolutePath = Path.GetFullPath(filePath);
+                using (var writer = new StreamWriter(absolutePath))
                 {
                     foreach (var city in cities)
                     {
-                        writer.WriteLine($"{city.Name},{city.Country},{city.Population},{city.Latitude},{city.Longitude}");
+                        writer.WriteLine(
+                        $"{city.Name}," +
+                        $"{city.Country}," +
+                        $"{(city.Population.HasValue ? city.Population.Value.ToString() : "")}," +
+                        $"{city.Latitude.ToString(CultureInfo.InvariantCulture)}," +
+                        $"{city.Longitude.ToString(CultureInfo.InvariantCulture)}"
+                );
                     }
                 }
                 AnsiConsole.MarkupLine("[green]Изменения сохранены.[/]");
