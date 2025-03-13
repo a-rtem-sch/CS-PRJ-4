@@ -192,6 +192,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.0.1, )"
+            },
             "Spectre.Console": {
               "target": "Package",
               "version": "[0.49.1, )"
