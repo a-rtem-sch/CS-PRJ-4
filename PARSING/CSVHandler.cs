@@ -8,6 +8,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace PARSING
 {
@@ -25,24 +27,28 @@ namespace PARSING
                     badRecords.Add(new BadRecord
                     {
                         RawRecord = context.RawRecord,
-                        Field = context.Field
+                        Field = context.Field,
+                        ErrorMessage = context.RawRecord ?? "Unknown error"
                     });
                 },
                 MissingFieldFound = null, // Игнорируем отсутствующие поля
                 HeaderValidated = null,   // Игнорируем ошибки валидации заголовков
                 IgnoreBlankLines = true,
-
                 PrepareHeaderForMatch = args => args.Header.ToLower(), // Приводим заголовки к нижнему регистру
+                ReadingExceptionOccurred = exception =>
+                {
+                    // Логируем ошибку и продолжаем парсинг
+                    badRecords.Add(new BadRecord
+                    {
+                        RawRecord = GeneralParsing.ExtractRawRecord(exception.Exception.ToString()),
+                        
+                    });
+                    return false; // Продолжаем парсинг после ошибки
+                }
             };
 
-            string absolutePath = Path.GetFullPath(filePath);
-            using var reader = new StreamReader(absolutePath);
+            using var reader = new StreamReader(filePath);
             using var csv = new CsvReader(reader, config);
-
-            // Регистрируем кастомный конвертер для всех nullable-типов
-            csv.Context.TypeConverterCache.AddConverter<ulong?>(new NullableConverter<ulong>());
-            csv.Context.TypeConverterCache.AddConverter<int?>(new NullableConverter<int>());
-            csv.Context.TypeConverterCache.AddConverter<double?>(new NullableConverter<double>());
 
             try
             {
@@ -52,8 +58,9 @@ namespace PARSING
             {
                 badRecords.Add(new BadRecord
                 {
-                    RawRecord = ex.Context.Parser.RawRecord,
-                    Field = ex.Message
+                    RawRecord = ex.Context?.Parser?.RawRecord ?? "N/A",
+                    Field = ex.Context?.Reader?.CurrentIndex.ToString() ?? "N/A",
+                    ErrorMessage = ex.Message
                 });
             }
 
@@ -68,7 +75,8 @@ namespace PARSING
     }
     public class BadRecord
     {
-        public string RawRecord { get; set; }
-        public string Field { get; set; }
+        public string RawRecord { get; set; } // Некорректная строка
+        public string Field { get; set; }     // Поле, в котором произошла ошибка
+        public string ErrorMessage { get; set; } // Сообщение об ошибке
     }
 }

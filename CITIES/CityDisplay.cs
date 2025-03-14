@@ -35,7 +35,7 @@ namespace CITIES
             }
 
             AnsiConsole.Write(table);
-            AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
+            AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
         }

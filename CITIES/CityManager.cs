@@ -161,7 +161,7 @@ namespace CITIES
                 new TextPrompt<double>("Введите новую долготу:")
                     .DefaultValue(city.Longitude));
 
-            AnsiConsole.MarkupLine("[green]Информация о городе успешно обновлена. Нажмите любую класишу для продолжения:[/]");
+            AnsiConsole.MarkupLine("[green]Информация о городе успешно обновлена. Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
         }
@@ -183,7 +183,7 @@ namespace CITIES
            
 
             _cityCollection.DeleteCity(selectedCityName);
-            AnsiConsole.MarkupLine("[green]Город успешно удален. Нажмите любую класишу для продолжения:[/]");
+            AnsiConsole.MarkupLine("[green]Город успешно удален. Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
         }

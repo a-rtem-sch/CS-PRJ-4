@@ -12,32 +12,58 @@ namespace CS_PROJ_4
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            
-            string? filePath = AnsiConsole.Ask<string>("Введите путь к файлу с данными о городах:").Trim('\"');
 
-            if (!File.Exists(filePath))
+            List<City>? cities = null;
+            List<BadRecord>? badRecords = null;
+            string? filePath  = string.Empty;
+
+            while (true)
             {
-                AnsiConsole.MarkupLine("[red]Файл не найден.[/]");
-                return;
+                filePath = AnsiConsole.Ask<string>("Введите путь к файлу с данными о городах:").Trim('\"');
+
+                if (!File.Exists(filePath))
+                {
+                    AnsiConsole.MarkupLine("[red]Файл не найден. Пожалуйста, введите путь ещё раз.[/]");
+                    continue;
+                }
+
+                Console.Clear();
+
+                string fileFormat = GeneralParsing.ChooseMarkdown();
+
+                if (fileFormat == "CSV")
+                {
+                    try
+                    {
+                        var result = CSVHandler.ImportCitiesFromCsv(filePath);
+                        cities = result.Cities;
+                        badRecords = result.BadRecords;
+                        break;
+                    }
+                    catch
+                    {
+                        AnsiConsole.MarkupLine("[red]Критическая несовместимость файловой разметки с заявленной! Пожалуйста, выберите другой файл.[/]");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        cities = JSONHandler.ImportCitiesFromJson(filePath);
+                        break;
+                    }
+                    catch
+                    {
+                        AnsiConsole.MarkupLine("[red]Критическая несовместимость файловой разметки с заявленной! Пожалуйста, выберите другой файл.[/]");
+                    }
+                }
             }
-            Console.Clear();
 
-            string fileFormat = GeneralParsing.ChooseMarkdown();
-
-            List<City>? cities = new();
-            List<BadRecord>? badRecords = new();
-
-            if (fileFormat == "CSV")
+            if (badRecords != null && badRecords.Count > 0)
             {
-                var result = CSVHandler.ImportCitiesFromCsv(filePath);
-                cities = result.Cities;
-                badRecords = result.BadRecords;
+                AnsiConsole.MarkupLine("[yellow]Некоторые строки не были обработаны! \nПодробнее в разделе \"Просмотреть пропущенные строки\"[/]");
             }
-            else
-            {
-                cities = JSONHandler.ImportCitiesFromJson(filePath);
-            }
-            
+
             var cityCollection = new CityCollection(cities);
             var cityManager = new CityManager(cityCollection);
             var cityDisplay = new CityDisplay(cityCollection);
@@ -53,7 +79,7 @@ namespace CS_PROJ_4
                     "Удалить город"
                 };
 
-                if (badRecords.Count > 0)
+                if (badRecords != null && badRecords.Count > 0)
                 {
                     choices.Add("Просмотреть пропущенные строки");
                 }
@@ -84,9 +110,9 @@ namespace CS_PROJ_4
                         Console.Clear();
                         foreach (BadRecord br in badRecords)
                         {
-                            AnsiConsole.MarkupLine($"Строка:: [yellow]\"{br.RawRecord}, {br.Field}");
+                            AnsiConsole.WriteLine($"Строка:: \"{br.RawRecord}\"");
                         }
-                        AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
+                        AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
                         Console.ReadKey(intercept: true);
                         Console.Clear();
                         break;
