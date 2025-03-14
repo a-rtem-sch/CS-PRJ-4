@@ -12,13 +12,8 @@ namespace CS_PROJ_4
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-
-            AnsiConsole.MarkupLine("[bold green]Интерактивный справочник городов[/]");
-
             
-
-            var fileHandler = new CityFileHandler();
-            var filePath = AnsiConsole.Ask<string>("Введите путь к файлу с данными о городах:").Trim('\"');
+            string? filePath = AnsiConsole.Ask<string>("Введите путь к файлу с данными о городах:").Trim('\"');
 
             if (!File.Exists(filePath))
             {
@@ -26,9 +21,23 @@ namespace CS_PROJ_4
                 return;
             }
             Console.Clear();
-            var readerOutput = fileHandler.ReadCitiesFromFile(filePath);
-            var cities = readerOutput.Item1;
-            var errorLines = readerOutput.Item2;
+
+            string fileFormat = GeneralParsing.ChooseMarkdown();
+
+            List<City>? cities = new();
+            List<BadRecord>? badRecords = new();
+
+            if (fileFormat == "CSV")
+            {
+                var result = CSVHandler.ImportCitiesFromCsv(filePath);
+                cities = result.Cities;
+                badRecords = result.BadRecords;
+            }
+            else
+            {
+                cities = JSONHandler.ImportCitiesFromJson(filePath);
+            }
+            
             var cityCollection = new CityCollection(cities);
             var cityManager = new CityManager(cityCollection);
             var cityDisplay = new CityDisplay(cityCollection);
@@ -44,7 +53,7 @@ namespace CS_PROJ_4
                     "Удалить город"
                 };
 
-                if (errorLines.Count > 0)
+                if (badRecords.Count > 0)
                 {
                     choices.Add("Просмотреть пропущенные строки");
                 }
@@ -73,16 +82,25 @@ namespace CS_PROJ_4
                         break;
                     case "Просмотреть пропущенные строки":
                         Console.Clear();
-                        foreach (string s in errorLines)
+                        foreach (BadRecord br in badRecords)
                         {
-                            AnsiConsole.MarkupLine($"Строка:: [yellow]\"{s.Split("##")[0]}\"[/], причина:: {s.Split("#")[1]}");
+                            AnsiConsole.MarkupLine($"Строка:: [yellow]\"{br.RawRecord}, {br.Field}");
                         }
                         AnsiConsole.MarkupLine("[green]Нажмите любую класишу для продолжения:[/]");
                         Console.ReadKey(intercept: true);
                         Console.Clear();
                         break;
                     case "Выйти и сохранить":
-                        fileHandler.SaveCitiesToFile(filePath, cityCollection.Cities);
+                        //fileHandler.SaveCitiesToFile(filePath, cityCollection.Cities);
+                        string fileToWriteFormat = GeneralParsing.ChooseMarkdown();
+                        if (fileToWriteFormat == "JSON")
+                        {
+                            JSONHandler.ExportCitiesToJson(cities, filePath);
+                        }
+                        else
+                        {
+                            CSVHandler.ExportCitiesToCsv(cities, filePath);
+                        }
                         AnsiConsole.MarkupLine("[green]Выход...[/]");
                         return;
                 }

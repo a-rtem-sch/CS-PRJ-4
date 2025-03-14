@@ -1,0 +1,1 @@
+![Языковой барьер]("C:\Users\Артем\source\repos\CS-PROJ-4\assets\Языковой барьер.png")

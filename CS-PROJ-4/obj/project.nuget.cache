@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "1TIwUCsGenA=",
+  "dgSpecHash": "VTn6vb+Lw8E=",
   "success": true,
   "projectFilePath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Артем\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512",
     "C:\\Users\\Артем\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512",
     "C:\\Users\\Артем\\.nuget\\packages\\system.io.pipelines\\9.0.3\\system.io.pipelines.9.0.3.nupkg.sha512",
     "C:\\Users\\Артем\\.nuget\\packages\\system.net.http.json\\9.0.3\\system.net.http.json.9.0.3.nupkg.sha512",

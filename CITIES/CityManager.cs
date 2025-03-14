@@ -28,7 +28,7 @@ namespace CITIES
             var name = AnsiConsole.Ask<string>("Введите название города:");
             var country = AnsiConsole.Ask<string>("Введите страну:");
             
-            ulong? population = GetPopulationInput();
+            ulong? population = GetPopulationInput(null);
 
 
             // Автоматическое определение координат
@@ -91,14 +91,27 @@ namespace CITIES
         }
 
 
-        ulong? GetPopulationInput()
+        ulong? GetPopulationInput(ulong? pop)
         {
             while (true)
             {
-                string populationInput = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Введите население (опционально, нажмите Enter чтобы пропустить):")
-                        .AllowEmpty()
-                );
+                string populationInput;
+                if (pop == null)
+                {
+                    populationInput = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Введите население (опционально, нажмите Enter чтобы пропустить):")
+                            .AllowEmpty()
+                    );
+                }
+                else
+                {
+                    populationInput = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Введите население (опционально, нажмите Enter чтобы пропустить):")
+                            .DefaultValue(pop?.ToString() ?? "")
+                            .AllowEmpty()
+                    );
+                }
+
 
                 if (string.IsNullOrEmpty(populationInput))
                 {
@@ -140,7 +153,7 @@ namespace CITIES
             city.Country = AnsiConsole.Prompt(
                 new TextPrompt<string>("Введите новую страну:")
                     .DefaultValue(city.Country));
-            city.Population = GetPopulationInput();
+            city.Population = GetPopulationInput(city.Population);
             city.Latitude = AnsiConsole.Prompt(
                 new TextPrompt<double>("Введите новую широту:")
                     .DefaultValue(city.Latitude));

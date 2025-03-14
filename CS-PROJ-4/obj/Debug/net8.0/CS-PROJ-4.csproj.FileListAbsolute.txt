@@ -27,3 +27,4 @@ C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\System.Tex
 C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\GEOCODING.dll
 C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\GEOCODING.pdb
+C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\CsvHelper.dll
