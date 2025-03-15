@@ -1,7 +1,5 @@
 ﻿using GEOCODING;
 using Spectre.Console;
-using System.Diagnostics.Metrics;
-using System.Xml.Linq;
 
 namespace CITIES
 {
@@ -109,10 +107,19 @@ namespace CITIES
             Console.Clear();
         }
 
-        public void DisplayCitiesOnMap(List<City> cities)
+        public void DisplayCitiesOnMap(CityCollection cities)
         {
-            
-
+            try
+            {
+                Map.PrintMapWithPoints(cities.Cities);
+            }
+            catch (Exception ex) 
+            {
+                
+            }
+            AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
+            Console.ReadKey(intercept: true);
+            Console.Clear();
         }
     }
 }

@@ -13,5 +13,6 @@ namespace CITIES
         public ulong? Population { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public string Marker { get; set; } = "*";
     }
 }

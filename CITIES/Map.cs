@@ -1,5 +1,6 @@
 ﻿using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
+using Spectre.Console;
 
 namespace CITIES
 {
@@ -13,10 +14,7 @@ namespace CITIES
         private static readonly double[] XRange = { -20037508.34, 20037508.34 };
         private static readonly double[] YRange = { -20048966.10, 20048966.10 };
 
-        public static string GetMapString()
-        {
-            return WorldMap;
-        }
+
 
         // Преобразование координат в координаты карты
         private static (int x, int y) LatLonToXY(double lat, double lon)
@@ -59,59 +57,66 @@ namespace CITIES
         }
 
         // Отображение карты с точками
-        public static void PrintMapWithPoints(string mapString, (double lat, double lon, string label, char marker)[] points)
+        public static void PrintMapWithPoints(List<City> cities)
         {
-            string[] mapLines = mapString.Split('\n');
-
-            foreach (var point in points)
+            string[] mapLines = WorldMap.Split('\n');
+            int counter = 1;
+            foreach (var city in cities)
             {
+                city.Marker = counter++.ToString();
                 try
                 {
-                    var (x, y) = LatLonToXY(point.lat, point.lon);
-                    x += 8;
-                    if (y >= 0 && y < mapLines.Length && x >= 0 && x < mapLines[y].Length)
+                    var (x, y) = LatLonToXY(city.Latitude, city.Longitude);
+                    x += 8; // Смещение на 8 символов вправо
+
+                    if (y >= 0 && y < mapLines.Length && x >= 0 && x + city.Marker.Length <= mapLines[y].Length)
                     {
+                        // Вставляем маркер на карту
                         char[] line = mapLines[y].ToCharArray();
-                        line[x] = point.marker;
+                        for (int i = 0; i < city.Marker.Length; i++)
+                        {
+                            line[x + i] = city.Marker[i];
+                        }
                         mapLines[y] = new string(line);
-                        Console.WriteLine($"{point.marker}) {point.label} ({point.lat}, {point.lon}) -> ({x}, {y})");
+
+                        // Выводим информацию о городе
+                        AnsiConsole.MarkupLine($"{city.Marker}) [bold]{city.Name}[/]");
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Ошибка: {e.Message}");
+                    Console.WriteLine($"Ошибка для города {city.Name}: {e.Message}");
                 }
             }
 
-            // Вывод карты
+            // Вывод карты с цветными маркерами
             foreach (var line in mapLines)
             {
-                Console.WriteLine(line);
+                for (int i = 0; i < line.Length; i++)
+                {
+                    bool isMarker = false;
+                    foreach (var city in cities)
+                    {
+                        if (i + city.Marker.Length <= line.Length && line.Substring(i, city.Marker.Length) == city.Marker)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red; // Устанавливаем цвет маркера
+                            Console.Write(city.Marker);
+                            Console.ResetColor(); // Возвращаем стандартный цвет
+                            i += city.Marker.Length - 1; // Пропускаем оставшиеся символы маркера
+                            isMarker = true;
+                            break;
+                        }
+                    }
+
+                    if (!isMarker)
+                    {
+                        Console.Write(line[i]); // Обычный символ карты
+                    }
+                }
+                Console.WriteLine(); // Переход на новую строку
             }
         }
 
-
-
-
-        //        const string World =
-        //        @"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣄⣠⣀⡀⣀⣠⣤⣤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⢠⣠⣼⣿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⢠⣤⣦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⢦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣟⣾⣿⣽⣿⣿⣅⠈⠉⠻⣿⣿⣿⣿⣿⡿⠇⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⢀⡶⠒⢉⡀⢠⣤⣶⣶⣿⣷⣆⣀⡀⠀⢲⣖⠒⠀⠀⠀⠀⠀⠀⠀
-        //⢀⣤⣾⣶⣦⣤⣤⣶⣿⣿⣿⣿⣿⣿⣽⡿⠻⣷⣀⠀⢻⣿⣿⣿⡿⠟⠀⠀⠀⠀⠀⠀⣤⣶⣶⣤⣀⣀⣬⣷⣦⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣤⣦⣼⣀⠀
-        //⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠓⣿⣿⠟⠁⠘⣿⡟⠁⠀⠘⠛⠁⠀⠀⢠⣾⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠏⠙⠁
-        //⠀⠸⠟⠋⠀⠈⠙⣿⣿⣿⣿⣿⣿⣷⣦⡄⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⣼⣆⢘⣿⣯⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡉⠉⢱⡿⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⡿⠦⠀⠀⠀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⡗⠀⠈⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣉⣿⡿⢿⢷⣾⣾⣿⣞⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⠿⠿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣾⣿⣿⣷⣦⣶⣦⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠈⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣿⣤⡖⠛⠶⠤⡀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠙⣿⣿⠿⢻⣿⣿⡿⠋⢩⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠧⣤⣦⣤⣄⡀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠘⣧⠀⠈⣹⡻⠇⢀⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣤⣀⡀⠀⠀⠀⠀⠀⠀⠈⢽⣿⣿⣿⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⣴⣿⣷⢲⣦⣤⡀⢀⡀⠀⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣷⢀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠂⠛⣆⣤⡜⣟⠋⠙⠂⠀⠀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⠉⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣾⣿⣿⣿⣿⣿⣆⠀⠰⠄⠀⠉⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⠿⠿⣿⣿⣿⠇⠀⠀⢀⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⡿⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡇⠀⠀⢀⣼⠗⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠃⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠁⠀⠀⠀
-        //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
 
         public const string WorldMap = @"          . _..::__:  ,-""-""._       |]       ,     _,.__              
           _.___ _ _<_>`!(._`.`-.    /        _._     `_ ,_/  '  '-._.---.-.__ 
@@ -121,7 +126,7 @@ namespace CITIES
                  |           ,'         _)_.\\._<> {}              _,' /  '   
                  `.         /          [_/_'` `""(                <'}  )       
                   \\    .-. )          /   `-'""..' `:._          _)  '        
-           `        \  (  `(          /         `:\  > \  ,-^.  /' '          
+           `        \  (  `(          /         `:\  > /  ,-^.  /' '          
                      `._,   """"        |           \`'   \|   ?_)  {\          
                         `=.---.       `._._       ,'     ""`  |' ,- '.         
                           |    `-._        |     /          `:`<_|=--._       
@@ -137,150 +142,6 @@ namespace CITIES
         __,-----""-..?----_/ )\    . ,-'""             ""                  (__--/
                               /__/\/                                          ";
 
-        //        private const int MapWidth = 64; // Ширина карты в символах
-        //        private const int MapHeight = 18; // Высота карты в символах
-
-
-        //        private struct Segment
-        //        {
-        //            public double MinLatitude; // Минимальная широта
-        //            public double MaxLatitude; // Максимальная широта
-        //            public double MinLongitude; // Минимальная долгота
-        //            public double MaxLongitude; // Максимальная долгота
-
-        //            public override string ToString()
-        //            {
-        //                return $"({MinLatitude} - {MaxLatitude}), ({MinLongitude} - {MaxLongitude})";
-        //            }
-        //        }
-
-        //        // Массив сегментов
-        //        private Segment[,] segments;
-        //        public char[][] mapAsArray;
-
-
-        //        public Map()
-        //        {
-        //            //InitializeSegments();
-        //            //InitializeMapArray();
-        //            Console.WriteLine(WorldMap);
-        //        }
-
-
-
-        //        public void AddCity(City city)
-        //        {
-
-        //        }
-
-
-        //        private void InitializeMapArray()
-        //        {
-        //            string[] lines = World.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-        //            char[][] charArray = new char[lines.Length][];
-
-        //            for (int i = 0; i < lines.Length; i++)
-        //            {
-        //                charArray[i] = lines[i].ToCharArray();
-        //            }
-        //            mapAsArray = charArray;
-        //        }
-
-        //        private void InitializeSegments()
-        //        {
-        //            segments = new Segment[MapWidth, MapHeight];
-
-        //            // Широта и долгота для карты
-        //            double minLatitude = -90;
-        //            double maxLatitude = 90;
-        //            double minLongitude = -180;
-        //            double maxLongitude = 180;
-
-
-        //            Console.WriteLine(MapWidth + "    " + MapHeight);
-
-        //            for (int y = 0; y < MapHeight - 1; y++)
-        //            {
-        //                for (int x = 0; x < MapWidth - 1; x++)
-        //                {
-        //                    segments[y, x] = new Segment
-        //                    {
-        //                        MinLatitude = minLatitude + y * (maxLatitude - minLatitude) / MapHeight,
-        //                        MaxLatitude = minLatitude + (y + 1) * (maxLatitude - minLatitude) / MapHeight,
-        //                        MinLongitude = minLongitude + x * (maxLongitude - minLongitude) / MapWidth,
-        //                        MaxLongitude = minLongitude + (x + 1) * (maxLongitude - minLongitude) / MapWidth
-        //                    };
-        //                    Console.WriteLine(x + "  " + y + "   " + segments[y, x]);
-        //                }
-        //            }
-        //        }
-
-        //        public void PrintMap()
-        //        {
-        //            for (int i = 0; i < mapAsArray.Length; i++)
-        //            {
-        //                for (int j = 0; j < mapAsArray[i].Length; j++)
-        //                {
-        //                    Console.Write(mapAsArray[i][j]);
-        //                }
-        //                Console.WriteLine();
-        //            }
-        //        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //    // Добавление города на карту
-        //    public string AddCityToMap(double latitude, double longitude)
-        //    {
-        //        // Находим сегмент, в который попадают координаты
-        //        for (int y = 0; y < SegmentsY; y++)
-        //        {
-        //            for (int x = 0; x < SegmentsX; x++)
-        //            {
-        //                if (latitude >= segments[y, x].MinLatitude && latitude <= segments[y, x].MaxLatitude &&
-        //                    longitude >= segments[y, x].MinLongitude && longitude <= segments[y, x].MaxLongitude)
-        //                {
-        //                    // Преобразуем координаты в позиции на карте
-        //                    int localX = (int)((longitude - segments[y, x].MinLongitude) / (segments[y, x].MaxLongitude - segments[y, x].MinLongitude) * SegmentWidth);
-        //                    int localY = (int)((segments[y, x].MaxLatitude - latitude) / (segments[y, x].MaxLatitude - segments[y, x].MinLatitude) * SegmentHeight);
-
-        //                    // Глобальные координаты на карте
-        //                    int globalX = x * SegmentWidth + localX;
-        //                    int globalY = y * SegmentHeight + localY;
-        //                    Console.WriteLine(x + "   " + y);
-        //                    Console.ReadKey();
-
-        //                    // Проверка на выход за границы карты
-        //                    if (globalX < 0 || globalX >= MapWidth || globalY < 0 || globalY >= MapHeight)
-        //                    {
-        //                        throw new ArgumentException("Координаты выходят за пределы карты.");
-        //                    }
-
-        //                    // Вставляем звездочку на карту
-        //                    string[] lines = World.Split(new[] { '\n' }, StringSplitOptions.None);
-        //                    char[] lineChars = lines[globalY].ToCharArray();
-        //                    lineChars[globalX] = '*';
-        //                    lines[globalY] = new string(lineChars);
-
-        //                    return string.Join("\n", lines);
-        //                }
-        //            }
-        //        }
-
-        //        throw new ArgumentException("Координаты не найдены в пределах карты.");
-        //    }
-        //}
 
 
     }
