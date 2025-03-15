@@ -1,15 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "ReAG+/1keVs=",
+  "dgSpecHash": "gjPLRT5ekRQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\PARSING\\PARSING.csproj",
+  "projectFilePath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\PARSING\\PARSING.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Артем\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512",
-    "C:\\Users\\Артем\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512",
-    "C:\\Users\\Артем\\.nuget\\packages\\system.io.pipelines\\9.0.3\\system.io.pipelines.9.0.3.nupkg.sha512",
-    "C:\\Users\\Артем\\.nuget\\packages\\system.net.http.json\\9.0.3\\system.net.http.json.9.0.3.nupkg.sha512",
-    "C:\\Users\\Артем\\.nuget\\packages\\system.text.encodings.web\\9.0.3\\system.text.encodings.web.9.0.3.nupkg.sha512",
-    "C:\\Users\\Артем\\.nuget\\packages\\system.text.json\\9.0.3\\system.text.json.9.0.3.nupkg.sha512"
+    "C:\\Users\\GamePC\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\projnet\\2.0.0\\projnet.2.0.0.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\system.io.pipelines\\9.0.3\\system.io.pipelines.9.0.3.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\system.net.http.json\\9.0.3\\system.net.http.json.9.0.3.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\system.text.encodings.web\\9.0.3\\system.text.encodings.web.9.0.3.nupkg.sha512",
+    "C:\\Users\\GamePC\\.nuget\\packages\\system.text.json\\9.0.3\\system.text.json.9.0.3.nupkg.sha512"
   ],
   "logs": []
 }

@@ -108,5 +108,11 @@ namespace CITIES
             Console.ReadKey(intercept: true);
             Console.Clear();
         }
+
+        public void DisplayCitiesOnMap(List<City> cities)
+        {
+            
+
+        }
     }
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj": {}
+    "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj": {
+    "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\CITIES.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj",
+        "projectUniqueName": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\CITIES.csproj",
         "projectName": "CITIES",
-        "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj",
-        "packagesPath": "C:\\Users\\Артем\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\obj\\",
+        "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\CITIES.csproj",
+        "packagesPath": "C:\\Users\\GamePC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Артем\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GamePC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,8 +29,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj": {
-                "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj"
+              "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj": {
+                "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj"
               }
             }
           }
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "ProjNet": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
             "Spectre.Console": {
               "target": "Package",
               "version": "[0.49.1, )"
@@ -79,17 +83,17 @@
         }
       }
     },
-    "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj": {
+    "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj",
+        "projectUniqueName": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj",
         "projectName": "CS-PROJ-4",
-        "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj",
-        "packagesPath": "C:\\Users\\Артем\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CS-PROJ-4\\obj\\",
+        "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CS-PROJ-4\\CS-PROJ-4.csproj",
+        "packagesPath": "C:\\Users\\GamePC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CS-PROJ-4\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Артем\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GamePC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,14 +108,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj": {
-                "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj"
+              "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\CITIES.csproj": {
+                "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\CITIES.csproj"
               },
-              "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj": {
-                "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj"
+              "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj": {
+                "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj"
               },
-              "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\PARSING\\PARSING.csproj": {
-                "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\PARSING\\PARSING.csproj"
+              "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\PARSING\\PARSING.csproj": {
+                "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\PARSING\\PARSING.csproj"
               }
             }
           }
@@ -160,17 +164,17 @@
         }
       }
     },
-    "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj": {
+    "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
+        "projectUniqueName": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
         "projectName": "GEOCODING",
-        "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
-        "packagesPath": "C:\\Users\\Артем\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\obj\\",
+        "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
+        "packagesPath": "C:\\Users\\GamePC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Артем\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GamePC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -227,17 +231,17 @@
         }
       }
     },
-    "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\PARSING\\PARSING.csproj": {
+    "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\PARSING\\PARSING.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\PARSING\\PARSING.csproj",
+        "projectUniqueName": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\PARSING\\PARSING.csproj",
         "projectName": "PARSING",
-        "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\PARSING\\PARSING.csproj",
-        "packagesPath": "C:\\Users\\Артем\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\PARSING\\obj\\",
+        "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\PARSING\\PARSING.csproj",
+        "packagesPath": "C:\\Users\\GamePC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\PARSING\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Артем\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GamePC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -252,8 +256,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj": {
-                "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\CITIES\\CITIES.csproj"
+              "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\CITIES.csproj": {
+                "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\CITIES\\CITIES.csproj"
               }
             }
           }

@@ -1,5 +1,30 @@
-Name,Country,Population,Latitude,Longitude
-London,Великобритания,8908081,51.5074,-0.1278
-Токио,Япония,13929286,35.6895,139.6917
-Париж,Франция,,48.8566,2.3522
-Москва,Russia,14000000,55.625578,37.6063916
+[
+  {
+    "name": "London",
+    "country": "\u0412\u0435\u043B\u0438\u043A\u043E\u0431\u0440\u0438\u0442\u0430\u043D\u0438\u044F",
+    "population": 8908081,
+    "latitude": 51.5074,
+    "longitude": -0.1278
+  },
+  {
+    "name": "\u0422\u043E\u043A\u0438\u043E",
+    "country": "\u042F\u043F\u043E\u043D\u0438\u044F",
+    "population": 13929286,
+    "latitude": 35.6895,
+    "longitude": 139.6917
+  },
+  {
+    "name": "\u041F\u0430\u0440\u0438\u0436",
+    "country": "\u0424\u0440\u0430\u043D\u0446\u0438\u044F",
+    "population": null,
+    "latitude": 48.8566,
+    "longitude": 2.3522
+  },
+  {
+    "name": "\u041C\u043E\u0441\u043A\u0432\u0430",
+    "country": "Russia",
+    "population": 14000000,
+    "latitude": 55.625578,
+    "longitude": 37.6063916
+  }
+]

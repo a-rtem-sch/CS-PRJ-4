@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GEOCODING")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1b1105626fe1b54edb90803405c84da13b202eb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9f13b7d72e39062266c371caf8e2a86d2e48837")]
 [assembly: System.Reflection.AssemblyProductAttribute("GEOCODING")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GEOCODING")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
