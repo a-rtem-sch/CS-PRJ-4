@@ -36,6 +36,7 @@ namespace CITIES
             AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
 
         public void SelectAndDisplayCity(CityCollection cityCollection)
@@ -105,6 +106,7 @@ namespace CITIES
             AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
 
         public void DisplayCitiesOnMap(CityCollection cities)
@@ -120,6 +122,7 @@ namespace CITIES
             AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
     }
 }

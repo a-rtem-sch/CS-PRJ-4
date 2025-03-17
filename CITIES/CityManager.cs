@@ -1,11 +1,5 @@
-﻿using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GEOCODING;
-using System.Net.Http.Json;
+﻿using GEOCODING;
+using Spectre.Console;
 using System.Globalization;
 
 namespace CITIES
@@ -27,7 +21,7 @@ namespace CITIES
         {
             var name = AnsiConsole.Ask<string>("Введите название города:");
             var country = AnsiConsole.Ask<string>("Введите страну:");
-            
+
             ulong? population = GetPopulationInput(null);
 
 
@@ -88,6 +82,7 @@ namespace CITIES
             AnsiConsole.MarkupLine("[green]Город успешно добавлен. Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
 
 
@@ -127,13 +122,17 @@ namespace CITIES
             }
         }
 
-        
 
-        public void EditCity()
+
+        public void EditCity(CityCollection cities)
         {
             //string name = AnsiConsole.Ask<string>("Введите название города для редактирования:");
             //City city = _cityCollection.GetCityByName(name);
-
+            if (cities.Cities.Count == 0)
+            {
+                AnsiConsole.MarkupLine("[red]Список городов пуст.[/]");
+                return;
+            }
             var cityNames = _cityCollection.Cities.Select(c => c.Name).ToList();
             cityNames.Add("Назад");
             string selectedCityName = AnsiConsole.Prompt(
@@ -164,6 +163,7 @@ namespace CITIES
             AnsiConsole.MarkupLine("[green]Информация о городе успешно обновлена. Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
 
         // Удаление города
@@ -180,12 +180,13 @@ namespace CITIES
             {
                 return;
             }
-           
+
 
             _cityCollection.DeleteCity(selectedCityName);
             AnsiConsole.MarkupLine("[green]Город успешно удален. Нажмите любую клавишу для продолжения:[/]");
             Console.ReadKey(intercept: true);
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using CITIES;
 using PARSING;
 using Spectre.Console;
+using System.Text;
+
 
 namespace CS_PROJ_4
 {
@@ -8,50 +10,17 @@ namespace CS_PROJ_4
     {
         public static void Main(string[] args)
         {
-            //Console.OutputEncoding = Encoding.UTF8;
-
-            //Map map = new Map();
-
-            ////map.PrintMap();
-
-            //// Пример добавления города
-            //double latitude = 55.7558; // Широта Москвы
-            //double longitude = 37.6176; // Долгота Москвы
-
-            ////string modifiedMap = map.AddCityToMap(latitude, longitude);
-            ////Console.WriteLine(modifiedMap);
-
-            //Console.ReadKey();
-            //string mapString = Map.GetMapString();
-
-            //// Тестовые координаты
-            //var coords = new (double lat, double lon, string label, char marker)[]
-            //{
-            //(51.369208,  0.106923, "London", '1'),
-            //(39.768173, -74.715499, "New York", '2'),
-            //(-18.259349, 46.850023, "Madagascar", '3'),
-            //(-34.520136, 137.565312, "Melbourne", '4'),
-            //(48.208176, 16.373819, "Vienna", '5'),
-            //(-43.532055, 172.636230, "CHCH", '6'),
-            //(35.689487, 139.691711, "Tokyo", '7'),
-            //(33.929047, -118.441495, "LA", '8'),
-            //(49.240186, -123.110419, "Vancouver", '9')
-            //};
-
-            // Отображение карты с точками
-            //Map.PrintMapWithPoints(mapString, coords);
-
-
-
-
+            Console.OutputEncoding = Encoding.UTF8;
 
             List<City>? cities = null;
             List<BadRecord>? badRecords = null;
             string? filePath = string.Empty;
 
-            GeneralParsing.GetFile(ref cities, ref badRecords, ref filePath);
+            var cityCollection = new CityCollection();
 
-            var cityCollection = new CityCollection(cities);
+            GeneralParsing.GetFile(ref cityCollection, ref badRecords, ref filePath);
+
+            
             var cityManager = new CityManager(cityCollection);
             var cityDisplay = new CityDisplay(cityCollection);
             //var map = new Map();
@@ -60,7 +29,6 @@ namespace CS_PROJ_4
             {
                 var choices = new List<string>
                 {
-                    "Ввести новые данные",
                     "Просмотреть список городов",
                     "Информация о городе",
                     "Города на карте",
@@ -73,7 +41,9 @@ namespace CS_PROJ_4
                 {
                     choices.Add("Просмотреть пропущенные строки");
                 }
-                choices.Add("Выйти и сохранить");
+                choices.Add("Ввести новые данные");
+                choices.Add("Сохранить");
+                choices.Add("Выйти");
                 var choice = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Выберите действие:")
@@ -81,50 +51,108 @@ namespace CS_PROJ_4
 
                 switch (choice)
                 {
-                    case "Ввести новые данные":
-                        GeneralParsing.GetFile(ref cities, ref badRecords, ref filePath);
-                        break;
                     case "Просмотреть список городов":
-                        cityDisplay.DisplayCitiesTable();
+                        try { cityDisplay.DisplayCitiesTable(); }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка показа списка[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
                         break;
                     case "Информация о городе":
-                        cityDisplay.SelectAndDisplayCity(cityCollection);
+                        try { cityDisplay.SelectAndDisplayCity(cityCollection); }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка показа информации[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
                         break;
                     case "Города на карте":
-                        cityDisplay.DisplayCitiesOnMap(cityCollection);
+                        try { cityDisplay.DisplayCitiesOnMap(cityCollection); }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка отображения на карте[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
                         break;
                     case "Добавить город":
-                        cityManager.AddCity();
+                        try { cityManager.AddCity(); }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка добавления[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
                         break;
                     case "Редактировать город":
-                        cityManager.EditCity();
+                        try { cityManager.EditCity(cityCollection); }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка редактирования[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
                         break;
                     case "Удалить город":
-                        cityManager.DeleteCity();
+                        try { cityManager.DeleteCity(); }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка удаления[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
                         break;
                     case "Просмотреть пропущенные строки":
                         Console.Clear();
+                        Console.WriteLine("\x1b[3J");
                         foreach (BadRecord br in badRecords)
                         {
-                            AnsiConsole.WriteLine($"Строка:: \"{br.RawRecord}\"");
+                            try
+                            {
+                                AnsiConsole.MarkupLine($"Строка:: [bold]\"{br.RawRecord}\"[/]");
+                            }
+                            catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка просмотра пропущенных строк[/]");
+                                AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                                Console.ReadKey(intercept: true);
+                            }
+
                         }
                         AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
                         Console.ReadKey(intercept: true);
                         Console.Clear();
+                        Console.WriteLine("\x1b[3J");
+                        
                         break;
-                    case "Выйти и сохранить":
-                        //fileHandler.SaveCitiesToFile(filePath, cityCollection.Cities);
-                        string fileToWriteFormat = GeneralParsing.ChooseMarkdown();
-                        if (fileToWriteFormat == "JSON")
+                    case "Ввести новые данные":
+                        try { GeneralParsing.GetFile(ref cityCollection, ref badRecords, ref filePath); }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка ввода данных[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
+                        break;
+                    case "Сохранить":
+                        try
                         {
-                            JSONHandler.ExportCitiesToJson(cities, filePath);
+                            string fileToWriteFormat = GeneralParsing.ChooseMarkdown();
+                            if (fileToWriteFormat == "JSON")
+                            {
+                                JSONHandler.ExportCitiesToJson(cities, filePath);
+                            }
+                            else
+                            {
+                                CSVHandler.ExportCitiesToCsv(cities, filePath);
+                            }
+                        }
+                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка сохранения[/]");
+                            AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            Console.ReadKey(intercept: true);
+                        }
+                        break;
+                    case "Выйти":
+                        bool isConfirmed = AnsiConsole.Confirm("Вы уверены, что хотите выйти без автосохранения?");
+
+                        if (isConfirmed)
+                        {
+
+                            AnsiConsole.MarkupLine("[green]Выход...[/]");
+                            return;
                         }
                         else
                         {
-                            CSVHandler.ExportCitiesToCsv(cities, filePath);
+                            break;
                         }
-                        AnsiConsole.MarkupLine("[green]Выход...[/]");
-                        return;
+
                 }
             }
         }

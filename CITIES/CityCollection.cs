@@ -15,6 +15,12 @@ namespace CITIES
         {
             Cities.Add(city);
         }
+
+        public void UpdateCities(List<City> newCities)
+        {
+            Cities = newCities;
+        }
+
         public void EditCity(string name, Action<City> editAction)
         {
             var city = Cities.FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));

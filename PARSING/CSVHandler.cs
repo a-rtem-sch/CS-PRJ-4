@@ -1,14 +1,7 @@
 ﻿using CITIES;
 using CsvHelper;
 using CsvHelper.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Formats.Asn1;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 
 namespace PARSING
@@ -41,7 +34,7 @@ namespace PARSING
                     badRecords.Add(new BadRecord
                     {
                         RawRecord = GeneralParsing.ExtractRawRecord(exception.Exception.ToString()),
-                        
+
                     });
                     return false; // Продолжаем парсинг после ошибки
                 }
@@ -70,13 +63,27 @@ namespace PARSING
         {
             using var writer = new StreamWriter(filePath);
             using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+
+            // Регистрируем кастомный маппинг
+            csv.Context.RegisterClassMap<CityMap>();
+
+            // Записываем данные в CSV
             csv.WriteRecords(cities);
         }
     }
-    public class BadRecord
+
+    public sealed class CityMap : ClassMap<City>
     {
-        public string RawRecord { get; set; } // Некорректная строка
-        public string Field { get; set; }     // Поле, в котором произошла ошибка
-        public string ErrorMessage { get; set; } // Сообщение об ошибке
+        public CityMap()
+        {
+            // Указываем, какие поля включать в CSV
+            Map(m => m.Name).Name("Name");
+            Map(m => m.Country).Name("Country");
+            Map(m => m.Population).Name("Population");
+            Map(m => m.Latitude).Name("Latitude");
+            Map(m => m.Longitude).Name("Longitude");
+        }
     }
+
+
 }

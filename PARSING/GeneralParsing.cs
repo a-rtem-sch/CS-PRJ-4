@@ -1,5 +1,6 @@
 ﻿using CITIES;
 using Spectre.Console;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace PARSING
@@ -29,12 +30,14 @@ namespace PARSING
             return "N/A"; // Если RawRecord не найден
         }
 
-        public static void GetFile(ref List<City> cities, ref List<BadRecord> badRecords, ref string? filePath)
+        public static void GetFile(ref CityCollection cityCollection, ref List<BadRecord> badRecords, ref string? filePath)
         {
+            bool jsonError = false;
 
             while (true)
             {
-                filePath = AnsiConsole.Ask<string>("Введите путь к файлу с данными о городах:").Trim('\"');
+                char[] charsToTrim = { '\"', ' ' };
+                filePath = AnsiConsole.Ask<string>("Введите путь к файлу с данными о городах:").Trim(charsToTrim);
 
                 if (!File.Exists(filePath))
                 {
@@ -43,6 +46,7 @@ namespace PARSING
                 }
 
                 Console.Clear();
+                Console.WriteLine("\x1b[3J");
 
                 string fileFormat = ChooseMarkdown();
 
@@ -51,7 +55,7 @@ namespace PARSING
                     try
                     {
                         var result = CSVHandler.ImportCitiesFromCsv(filePath);
-                        cities = result.Cities;
+                        cityCollection.UpdateCities(result.Cities);
                         badRecords = result.BadRecords;
                         break;
                     }
@@ -64,8 +68,14 @@ namespace PARSING
                 {
                     try
                     {
-                        cities = JSONHandler.ImportCitiesFromJson(filePath);
+                        var result = JSONHandler.ImportCitiesFromJson(filePath);
+                        cityCollection.UpdateCities(result.Cities);
+                        badRecords = result.BadRecords;
                         break;
+                    }
+                    catch (JsonException)
+                    {
+                        AnsiConsole.MarkupLine($"[red]Ошибка сериализации файла![/]");
                     }
                     catch
                     {
@@ -79,5 +89,18 @@ namespace PARSING
                 AnsiConsole.MarkupLine("[yellow]Некоторые строки не были обработаны! \nПодробнее в разделе \"Просмотреть пропущенные строки\"[/]");
             }
         }
+    }
+
+    public class BadRecord
+    {
+        public BadRecord()
+        {
+            Field = string.Empty;
+            RawRecord = string.Empty;
+            ErrorMessage = string.Empty;
+        }
+        public string RawRecord { get; set; }
+        public string Field { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

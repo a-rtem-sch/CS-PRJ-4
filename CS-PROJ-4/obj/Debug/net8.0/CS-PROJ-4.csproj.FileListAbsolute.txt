@@ -59,3 +59,4 @@ C:\Users\GamePC\Desktop\ДОКУМЕНТЫ\CS-PROJ-4\CS-PROJ-4\obj\Debug\net8.0\
 C:\Users\GamePC\Desktop\ДОКУМЕНТЫ\CS-PROJ-4\CS-PROJ-4\obj\Debug\net8.0\CS-PROJ-4.genruntimeconfig.cache
 C:\Users\GamePC\Desktop\ДОКУМЕНТЫ\CS-PROJ-4\CS-PROJ-4\obj\Debug\net8.0\ref\CS-PROJ-4.dll
 C:\Users\GamePC\Desktop\ДОКУМЕНТЫ\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\ProjNET.dll
+C:\Users\Артем\source\repos\CS-PROJ-4\CS-PROJ-4\bin\Debug\net8.0\ProjNET.dll

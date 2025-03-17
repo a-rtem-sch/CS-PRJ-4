@@ -248,19 +248,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\GamePC\\.nuget\\packages\\": {}
+    "C:\\Users\\Артем\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
+      "projectUniqueName": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
       "projectName": "GEOCODING",
-      "projectPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
-      "packagesPath": "C:\\Users\\GamePC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\GamePC\\Desktop\\ДОКУМЕНТЫ\\CS-PROJ-4\\GEOCODING\\obj\\",
+      "projectPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\GEOCODING.csproj",
+      "packagesPath": "C:\\Users\\Артем\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Артем\\source\\repos\\CS-PROJ-4\\GEOCODING\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\GamePC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Артем\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
