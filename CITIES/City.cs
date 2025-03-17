@@ -15,7 +15,7 @@ namespace CITIES
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
-        [JsonIgnore] // Игнорируем поле Marker при сериализации
+        [JsonIgnore]
         public string Marker { get; set; } = "*";
     }
 }

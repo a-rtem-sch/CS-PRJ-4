@@ -32,7 +32,6 @@ namespace PARSING
 
         public static void GetFile(ref CityCollection cityCollection, ref List<BadRecord> badRecords, ref string? filePath)
         {
-            bool jsonError = false;
 
             while (true)
             {

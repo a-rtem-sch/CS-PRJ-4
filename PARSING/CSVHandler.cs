@@ -59,29 +59,14 @@ namespace PARSING
 
             return (cities, badRecords);
         }
-        public static void ExportCitiesToCsv(List<City> cities, string filePath)
+        public static void ExportCitiesToCsv(CityCollection cityCollection, string filePath)
         {
+            List<City> cities = cityCollection.Cities;
+
             using var writer = new StreamWriter(filePath);
             using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
 
-            // Регистрируем кастомный маппинг
-            csv.Context.RegisterClassMap<CityMap>();
-
-            // Записываем данные в CSV
             csv.WriteRecords(cities);
-        }
-    }
-
-    public sealed class CityMap : ClassMap<City>
-    {
-        public CityMap()
-        {
-            // Указываем, какие поля включать в CSV
-            Map(m => m.Name).Name("Name");
-            Map(m => m.Country).Name("Country");
-            Map(m => m.Population).Name("Population");
-            Map(m => m.Latitude).Name("Latitude");
-            Map(m => m.Longitude).Name("Longitude");
         }
     }
 

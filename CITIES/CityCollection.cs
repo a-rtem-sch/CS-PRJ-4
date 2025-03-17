@@ -21,18 +21,6 @@ namespace CITIES
             Cities = newCities;
         }
 
-        public void EditCity(string name, Action<City> editAction)
-        {
-            var city = Cities.FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-            if (city != null)
-            {
-                editAction(city);
-            }
-            else
-            {
-                AnsiConsole.MarkupLine("[red]Город не найден.[/]");
-            }
-        }
 
         public void DeleteCity(string name)
         {

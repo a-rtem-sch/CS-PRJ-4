@@ -52,8 +52,9 @@ namespace PARSING
 
             return (cities, badRecords);
         }
-        public static void ExportCitiesToJson(List<City> cities, string filePath)
+        public static void ExportCitiesToJson(CityCollection cityCollection, string filePath)
         {
+            List<City> cities = cityCollection.Cities;
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,

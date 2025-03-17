@@ -12,7 +12,7 @@ namespace CS_PROJ_4
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            List<City>? cities = null;
+            //List<City>? cities = null;
             List<BadRecord>? badRecords = null;
             string? filePath = string.Empty;
 
@@ -127,14 +127,17 @@ namespace CS_PROJ_4
                             string fileToWriteFormat = GeneralParsing.ChooseMarkdown();
                             if (fileToWriteFormat == "JSON")
                             {
-                                JSONHandler.ExportCitiesToJson(cities, filePath);
+                                JSONHandler.ExportCitiesToJson(cityCollection, filePath);
                             }
                             else
                             {
-                                CSVHandler.ExportCitiesToCsv(cities, filePath);
+                                CSVHandler.ExportCitiesToCsv(cityCollection, filePath);
                             }
                         }
-                        catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка сохранения[/]");
+                        catch (Exception ex)
+                        { 
+                            Console.WriteLine(ex.ToString());
+                            AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка сохранения[/]");
                             AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
                             Console.ReadKey(intercept: true);
                         }
