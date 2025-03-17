@@ -2,8 +2,12 @@
 
 namespace CITIES
 {
+    /// <summary>
+    /// Коллекция городов
+    /// </summary>
     public class CityCollection
     {
+        // основной список городов
         public List<City> Cities { get; private set; }
 
         public CityCollection(List<City> cities = null)

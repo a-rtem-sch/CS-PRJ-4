@@ -3,6 +3,9 @@ using Spectre.Console;
 
 namespace CITIES
 {
+    /// <summary>
+    /// Отображение городов в различном виде
+    /// </summary>
     public class CityDisplay
     {
         private readonly CityCollection _cityCollection;
@@ -12,6 +15,9 @@ namespace CITIES
             _cityCollection = cityCollection;
         }
 
+        /// <summary>
+        /// Вывод в  виде таблички
+        /// </summary>
         public void DisplayCitiesTable()
         {
             var table = new Table();
@@ -39,6 +45,10 @@ namespace CITIES
             Console.WriteLine("\x1b[3J");
         }
 
+        /// <summary>
+        /// Выбор и вывод информации о городе
+        /// </summary>
+        /// <param name="cityCollection"></param>
         public void SelectAndDisplayCity(CityCollection cityCollection)
         {
             var cities = cityCollection.Cities;
@@ -71,6 +81,10 @@ namespace CITIES
                 AnsiConsole.MarkupLine("[red]Город не найден.[/]");
             }
         }
+        /// <summary>
+        /// Вывод полной информации о городе с API-запросами
+        /// </summary>
+        /// <param name="city">город</param>
         public void DisplayCityInfo(City city)
         {
             var data = GeocodingFillers.ReverseGeocode(city.Latitude, city.Longitude);
@@ -82,7 +96,7 @@ namespace CITIES
             AnsiConsole.MarkupLine($"[bold]Население:[/] {(city.Population.HasValue ? city.Population.Value.ToString("N0") : "N/A")}");
             AnsiConsole.MarkupLine($"[bold]Координаты:[/] Широта: {city.Latitude}, Долгота: {city.Longitude}");
 
-            // Вывод дополнительной информации из JSON
+            // Вывод дополнительной информации из API геолокации
             if (data != null)
             {
                 AnsiConsole.MarkupLine("[bold underline cyan]Дополнительная информация (обратное геокодирование по широте и долготе):[/]");
@@ -93,6 +107,7 @@ namespace CITIES
                 AnsiConsole.MarkupLine($"[bold]Границы:[/] Широта: {data.Boundingbox?[0]} - {data.Boundingbox?[1]}, Долгота: {data.Boundingbox?[2]} - {data.Boundingbox?[3]}");
             }
 
+            // Вывод информации о погоде
             if (weather != null)
             {
                 AnsiConsole.MarkupLine("[bold underline cyan]Текущая погода:[/]");
@@ -108,7 +123,10 @@ namespace CITIES
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
-
+        /// <summary>
+        /// Вывод городов на карте
+        /// </summary>
+        /// <param name="cities"></param>
         public void DisplayCitiesOnMap(CityCollection cities)
         {
             try

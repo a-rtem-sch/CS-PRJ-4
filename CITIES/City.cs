@@ -2,6 +2,9 @@
 
 namespace CITIES
 {
+    /// <summary>
+    /// Класс, представляющий город
+    /// </summary>
     public class City
     {
         public City()
@@ -15,6 +18,7 @@ namespace CITIES
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
+        // не пишем в JSON
         [JsonIgnore]
         public string Marker { get; set; } = "*";
     }

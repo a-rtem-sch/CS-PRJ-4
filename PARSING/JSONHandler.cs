@@ -3,12 +3,21 @@ using System.Text.Json;
 
 namespace PARSING
 {
+    /// <summary>
+    /// Парсинг JSON
+    /// </summary>
     public class JSONHandler
     {
+        /// <summary>
+        /// Получение городов
+        /// </summary>
+        /// <param name="filePath">путь к файлу</param>
+        /// <returns> кортеж из городов и ошибок</returns>
         public static (List<City> Cities, List<BadRecord> BadRecords) ImportCitiesFromJson(string filePath)
         {
             List<BadRecord> badRecords = new List<BadRecord>();
             string absolutePath = Path.GetFullPath(filePath);
+            // Опции парсинга
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
@@ -52,6 +61,11 @@ namespace PARSING
 
             return (cities, badRecords);
         }
+        /// <summary>
+        /// Запись городов в JSON
+        /// </summary>
+        /// <param name="cityCollection"></param>
+        /// <param name="filePath"></param>
         public static void ExportCitiesToJson(CityCollection cityCollection, string filePath)
         {
             List<City> cities = cityCollection.Cities;

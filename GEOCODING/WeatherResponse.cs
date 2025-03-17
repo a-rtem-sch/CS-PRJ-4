@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace GEOCODING
 {
+    /// <summary>
+    /// Получение погоды по координатам
+    /// </summary>
     public class WeatherResponse
     {
         public MainInfo Main { get; set; }
@@ -16,6 +19,12 @@ namespace GEOCODING
         public WindInfo Wind { get; set; }
         public CloudsInfo Clouds { get; set; }
 
+        /// <summary>
+        /// Запрос по апи
+        /// </summary>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <returns></returns>
         public static WeatherResponse GetWeather(double latitude, double longitude)
         {
             const string apiKey = "3ce9d787aec683c60bb7da29967b7656";
@@ -30,6 +39,9 @@ namespace GEOCODING
         }
     }
 
+    /// <summary>
+    /// Все дальней шие классы предназначены для реализации полей ответа на запрос
+    /// </summary>
     public class MainInfo
     {
         public double Temp { get; set; } // Температура в Кельвинах

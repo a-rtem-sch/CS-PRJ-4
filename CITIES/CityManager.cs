@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace CITIES
 {
+    /// <summary>
+    /// Класс, предоставляющий методы для работы с коллекцией городов
+    /// </summary>
     public class CityManager
     {
         private readonly CityCollection _cityCollection;
@@ -13,10 +16,17 @@ namespace CITIES
             _cityCollection = cityCollection;
         }
 
+        /// <summary>
+        /// Сразу схлопываем асинхронную функцию
+        /// </summary>
         public void AddCity()
         {
             AddCityAsync().GetAwaiter().GetResult();
         }
+        /// <summary>
+        /// Асинхронная функция для получения геоинформации
+        /// </summary>
+        /// <returns></returns>
         public async Task AddCityAsync()
         {
             var name = AnsiConsole.Ask<string>("Введите название города:");
@@ -25,7 +35,7 @@ namespace CITIES
             ulong? population = GetPopulationInput(null);
 
 
-            // Автоматическое определение координат
+            //запрос
             var coordinates = await GeocodingService.GeocodeAsync($"{name}, {country}");
 
             double latitude, longitude;
@@ -85,7 +95,11 @@ namespace CITIES
             Console.WriteLine("\x1b[3J");
         }
 
-
+        /// <summary>
+        /// Служебный метод для получения населения (нетривиальная обработка, сделал отдельно чтобы не грузить код)
+        /// </summary>
+        /// <param name="pop">Плейсхолдер, null для первого назначения</param>
+        /// <returns></returns>
         ulong? GetPopulationInput(ulong? pop)
         {
             while (true)
@@ -123,18 +137,21 @@ namespace CITIES
         }
 
 
-
+        /// <summary>
+        /// Изменение города
+        /// </summary>
+        /// <param name="cities">города</param>
         public void EditCity(CityCollection cities)
         {
-            //string name = AnsiConsole.Ask<string>("Введите название города для редактирования:");
-            //City city = _cityCollection.GetCityByName(name);
             if (cities.Cities.Count == 0)
             {
                 AnsiConsole.MarkupLine("[red]Список городов пуст.[/]");
                 return;
             }
+
             var cityNames = _cityCollection.Cities.Select(c => c.Name).ToList();
             cityNames.Add("Назад");
+
             string selectedCityName = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Выберите город:")
@@ -144,6 +161,7 @@ namespace CITIES
             {
                 return;
             }
+
             City city = _cityCollection.GetCityByName(selectedCityName);
 
             city.Name = AnsiConsole.Prompt(

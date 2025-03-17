@@ -9,8 +9,17 @@ using System.Threading.Tasks;
 
 namespace GEOCODING
 {
+    /// <summary>
+    /// Вторичные классы для сериализации данных запросов
+    /// </summary>
     public static class GeocodingFillers
     {
+        /// <summary>
+        /// Запрос реверсивного геокода
+        /// </summary>
+        /// <param name="latitude">очев</param>
+        /// <param name="longitude">очев</param>
+        /// <returns>асинхронную таску</returns>
         public static NominatimReverseResponse ReverseGeocode(double latitude, double longitude)
         {
             string requestUri = string.Format(
@@ -24,6 +33,9 @@ namespace GEOCODING
             return response;
         }
     }
+    /// <summary>
+    /// Класс для сериализации
+    /// </summary>
     public class NominatimReverseResponse
     {
         public string Display_Name { get; set; }
@@ -31,7 +43,9 @@ namespace GEOCODING
         public AddressInfo Address { get; set; }
         public string[] Boundingbox { get; set; }
     }
-
+    /// <summary>
+    /// Класс для сериализации
+    /// </summary>
     public class AddressInfo
     {
         public string Amenity { get; set; }

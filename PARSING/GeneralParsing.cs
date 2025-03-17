@@ -5,8 +5,15 @@ using System.Text.RegularExpressions;
 
 namespace PARSING
 {
+    /// <summary>
+    /// Глобальный класс, предоставляющий методы для парсинга
+    /// </summary>
     public class GeneralParsing
     {
+        /// <summary>
+        /// Выбор разметки
+        /// </summary>
+        /// <returns></returns>
         public static string ChooseMarkdown()
         {
             string? fileFormat = AnsiConsole.Prompt(
@@ -15,6 +22,11 @@ namespace PARSING
                         .AddChoices("CSV", "JSON"));
             return fileFormat;
         }
+        /// <summary>
+        /// Служебный класс для обработки Bad Record для вывода ошибки
+        /// </summary>
+        /// <param name="exceptionMessage"></param>
+        /// <returns></returns>
         public static string ExtractRawRecord(string exceptionMessage)
         {
             // Регулярное выражение для поиска RawRecord
@@ -29,7 +41,12 @@ namespace PARSING
 
             return "N/A"; // Если RawRecord не найден
         }
-
+        /// <summary>
+        /// Получить файл у пользователя
+        /// </summary>
+        /// <param name="cityCollection">Города</param>
+        /// <param name="badRecords">Ошибки</param>
+        /// <param name="filePath">Путь к файлу</param>
         public static void GetFile(ref CityCollection cityCollection, ref List<BadRecord> badRecords, ref string? filePath)
         {
 
@@ -90,6 +107,9 @@ namespace PARSING
         }
     }
 
+    /// <summary>
+    /// Запись об ошибке при парсинге для логгирования
+    /// </summary>
     public class BadRecord
     {
         public BadRecord()

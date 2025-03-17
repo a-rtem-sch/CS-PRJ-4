@@ -4,9 +4,12 @@ using Spectre.Console;
 
 namespace CITIES
 {
+    /// <summary>
+    /// Класс для работы с картой
+    /// </summary>
     public class Map
     {
-
+        // размеры карты
         private const int MapCols = 69;
         private const int MapRows = 41;
 
@@ -89,26 +92,6 @@ namespace CITIES
             }
 
 
-
-
-            //int columnsCount = 4;
-
-            //// Разбиваем список на группы по columnsCount элементов
-            //var groupedCities = cities
-            //    .Select((city, index) => new { city, index })
-            //    .GroupBy(x => x.index / columnsCount)
-            //    .Select(g => g.Select(x => x.city).ToList())
-            //    .ToList();
-            //foreach (var group in groupedCities)
-            //{
-            //    var columns = group.Select(city => $"{city.Marker}) [bold]{city.Name}[/]").ToList();
-            //    AnsiConsole.Write(new Columns(columns));
-            //}
-
-
-
-
-
             // Вывод карты с цветными маркерами
             foreach (var line in mapLines)
             {
@@ -137,7 +120,9 @@ namespace CITIES
             }
         }
 
-
+        /// <summary>
+        /// Карта для отрисовка, константа
+        /// </summary>
         public const string WorldMap = @"          . _..::__:  ,-""-""._       |]       ,     _,.__              
           _.___ _ _<_>`!(._`.`-.    /        _._     `_ ,_/  '  '-._.---.-.__ 
         .{     "" "" `-==,',._\{  \  / {)     / _ "">_,-' `                 /-/_ 

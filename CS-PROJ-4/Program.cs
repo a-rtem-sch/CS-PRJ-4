@@ -6,25 +6,29 @@ using System.Text;
 
 namespace CS_PROJ_4
 {
+    /// <summary>
+    /// Ассембли приложения
+    /// </summary>
     internal class Program
     {
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            //List<City>? cities = null;
+            // Создание нужных объектов
             List<BadRecord>? badRecords = null;
             string? filePath = string.Empty;
 
             var cityCollection = new CityCollection();
 
+            // Получаем файл, инициализируем коллекцию
             GeneralParsing.GetFile(ref cityCollection, ref badRecords, ref filePath);
 
             
             var cityManager = new CityManager(cityCollection);
             var cityDisplay = new CityDisplay(cityCollection);
-            //var map = new Map();
 
+            // Запуск меню
             while (true)
             {
                 var choices = new List<string>
@@ -102,8 +106,8 @@ namespace CS_PROJ_4
                             {
                                 AnsiConsole.MarkupLine($"Строка:: [bold]\"{br.RawRecord}\"[/]");
                             }
-                            catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка просмотра пропущенных строк[/]");
-                                AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
+                            catch { AnsiConsole.MarkupLine("[red]Произошла неизвестная ошибка:: ошибка просмотра пропущенной строки[/]");
+                                AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения вывода строк:[/]");
                                 Console.ReadKey(intercept: true);
                             }
 
