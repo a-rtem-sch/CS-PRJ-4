@@ -30,8 +30,8 @@ namespace PARSING
         public static string ExtractRawRecord(string exceptionMessage)
         {
             // Регулярное выражение для поиска RawRecord
-            var regex = new Regex(@"RawRecord:\s*(.+?)(\r?\n|$)", RegexOptions.Singleline);
-            var match = regex.Match(exceptionMessage);
+            Regex regex = new (@"RawRecord:\s*(.+?)(\r?\n|$)", RegexOptions.Singleline);
+            Match match = regex.Match(exceptionMessage);
 
             if (match.Success)
             {
@@ -52,7 +52,7 @@ namespace PARSING
 
             while (true)
             {
-                char[] charsToTrim = { '\"', ' ' };
+                char[] charsToTrim = ['\"', ' '];
                 filePath = AnsiConsole.Ask<string>("Введите путь к файлу с данными о городах:").Trim(charsToTrim);
 
                 if (!File.Exists(filePath))
@@ -70,9 +70,9 @@ namespace PARSING
                 {
                     try
                     {
-                        var result = CSVHandler.ImportCitiesFromCsv(filePath);
-                        cityCollection.UpdateCities(result.Cities);
-                        badRecords = result.BadRecords;
+                        (List<City> cities, List<BadRecord> badRecords1) = CSVHandler.ImportCitiesFromCsv(filePath);
+                        cityCollection.UpdateCities(cities);
+                        badRecords = badRecords1;
                         break;
                     }
                     catch
@@ -84,9 +84,9 @@ namespace PARSING
                 {
                     try
                     {
-                        var result = JSONHandler.ImportCitiesFromJson(filePath);
-                        cityCollection.UpdateCities(result.Cities);
-                        badRecords = result.BadRecords;
+                        (List<City> cities, List<BadRecord> badRecords1) = JSONHandler.ImportCitiesFromJson(filePath);
+                        cityCollection.UpdateCities(cities);
+                        badRecords = badRecords1;
                         break;
                     }
                     catch (JsonException)

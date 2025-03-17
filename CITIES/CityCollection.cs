@@ -5,15 +5,10 @@ namespace CITIES
     /// <summary>
     /// Коллекция городов
     /// </summary>
-    public class CityCollection
+    public class CityCollection(List<City> cities = null)
     {
         // основной список городов
-        public List<City> Cities { get; private set; }
-
-        public CityCollection(List<City> cities = null)
-        {
-            Cities = cities ?? new List<City>();
-        }
+        public List<City> Cities { get; private set; } = cities ?? [];
 
         public void AddCity(City city)
         {
@@ -28,10 +23,10 @@ namespace CITIES
 
         public void DeleteCity(string name)
         {
-            var city = Cities.FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            City? city = Cities.FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
             if (city != null)
             {
-                Cities.Remove(city);
+                _ = Cities.Remove(city);
                 //AnsiConsole.MarkupLine("[green]Город успешно удален.[/]");
             }
             else

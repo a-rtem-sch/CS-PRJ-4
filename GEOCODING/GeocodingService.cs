@@ -8,13 +8,11 @@ namespace GEOCODING
     /// </summary>
     public static class GeocodingService
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
-
-        public static HttpClient GetHttpClient { get { return _httpClient; } }
+        public static HttpClient GetHttpClient { get; } = new();
 
         static GeocodingService()
         {
-            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("CSPRJ4/1.0");
+            GetHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("CSPRJ4/1.0");
         }
 
         /// <summary>
@@ -26,22 +24,14 @@ namespace GEOCODING
         public static async Task<(double Latitude, double Longitude)?> GeocodeAsync(string query)
         {
             string requestUri = $"https://nominatim.openstreetmap.org/search?q={Uri.EscapeDataString(query)}&format=json&limit=1";
-            var response = await _httpClient.GetFromJsonAsync<NominatimResponse[]>(requestUri);
+            NominatimResponse[]? response = await GetHttpClient.GetFromJsonAsync<NominatimResponse[]>(requestUri);
 
-            if (response != null && response.Length > 0)
-            {
-                if (double.TryParse(response[0].Lat, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double lat) &&
-                    double.TryParse(response[0].Lon, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double lon))
-                {
-                    return (lat, lon);
-                }
-                else
-                {
-                    throw new FormatException("Invalid latitude or longitude format.");
-                }
-            }
-
-            return null; 
+            return response != null && response.Length > 0
+                ? double.TryParse(response[0].Lat, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double lat) &&
+                    double.TryParse(response[0].Lon, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double lon)
+                    ? ((double Latitude, double Longitude)?)(lat, lon)
+                    : throw new FormatException("Invalid latitude or longitude format.")
+                : null;
         }
 
         /// <summary>
@@ -59,7 +49,7 @@ namespace GEOCODING
                 latitude,
                 longitude
             );
-            var response = await _httpClient.GetFromJsonAsync<NominatimReverseResponse>(requestUri);
+            NominatimReverseResponse? response = await GetHttpClient.GetFromJsonAsync<NominatimReverseResponse>(requestUri);
 
             return response?.Display_Name ?? "Информация не найдена";
         }

@@ -29,7 +29,7 @@ namespace GEOCODING
             longitude
             );
 
-            var response = GeocodingService.GetHttpClient.GetFromJsonAsync<NominatimReverseResponse>(requestUri).GetAwaiter().GetResult();
+            NominatimReverseResponse? response = GeocodingService.GetHttpClient.GetFromJsonAsync<NominatimReverseResponse>(requestUri).GetAwaiter().GetResult();
             return response;
         }
     }

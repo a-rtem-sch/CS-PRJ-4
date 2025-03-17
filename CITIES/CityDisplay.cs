@@ -6,30 +6,25 @@ namespace CITIES
     /// <summary>
     /// Отображение городов в различном виде
     /// </summary>
-    public class CityDisplay
+    public class CityDisplay(CityCollection cityCollection)
     {
-        private readonly CityCollection _cityCollection;
-
-        public CityDisplay(CityCollection cityCollection)
-        {
-            _cityCollection = cityCollection;
-        }
+        private readonly CityCollection _cityCollection = cityCollection;
 
         /// <summary>
         /// Вывод в  виде таблички
         /// </summary>
         public void DisplayCitiesTable()
         {
-            var table = new Table();
-            table.AddColumn("Название");
-            table.AddColumn("Страна");
-            table.AddColumn("Население");
-            table.AddColumn("Широта");
-            table.AddColumn("Долгота");
+            Table table = new();
+            _ = table.AddColumn("Название");
+            _ = table.AddColumn("Страна");
+            _ = table.AddColumn("Население");
+            _ = table.AddColumn("Широта");
+            _ = table.AddColumn("Долгота");
 
-            foreach (var city in _cityCollection.Cities)
+            foreach (City city in _cityCollection.Cities)
             {
-                table.AddRow(
+                _ = table.AddRow(
                     city.Name,
                     city.Country,
                     city.Population?.ToString() ?? "N/A",
@@ -40,7 +35,7 @@ namespace CITIES
 
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
-            Console.ReadKey(intercept: true);
+            _ = Console.ReadKey(intercept: true);
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
@@ -51,14 +46,14 @@ namespace CITIES
         /// <param name="cityCollection"></param>
         public void SelectAndDisplayCity(CityCollection cityCollection)
         {
-            var cities = cityCollection.Cities;
+            List<City> cities = cityCollection.Cities;
 
             if (cities.Count == 0)
             {
                 AnsiConsole.MarkupLine("[red]Список городов пуст.[/]");
                 return;
             }
-            var cityNames = cities.Select(c => c.Name).ToList();
+            List<string> cityNames = cities.Select(c => c.Name).ToList();
             cityNames.Add("Назад");
             string selectedCityName = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
@@ -70,7 +65,7 @@ namespace CITIES
                 return;
             }
 
-            var selectedCity = cities.FirstOrDefault(c => c.Name == selectedCityName);
+            City? selectedCity = cities.FirstOrDefault(c => c.Name == selectedCityName);
 
             if (selectedCity != null)
             {
@@ -87,8 +82,8 @@ namespace CITIES
         /// <param name="city">город</param>
         public void DisplayCityInfo(City city)
         {
-            var data = GeocodingFillers.ReverseGeocode(city.Latitude, city.Longitude);
-            var weather = WeatherResponse.GetWeather(city.Latitude, city.Longitude);
+            NominatimReverseResponse data = GeocodingFillers.ReverseGeocode(city.Latitude, city.Longitude);
+            WeatherResponse weather = WeatherResponse.GetWeather(city.Latitude, city.Longitude);
 
             AnsiConsole.MarkupLine("[bold underline cyan]Информация о городе:[/]");
             AnsiConsole.MarkupLine($"[bold]Название:[/] {city.Name}");
@@ -119,7 +114,7 @@ namespace CITIES
             }
 
             AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
-            Console.ReadKey(intercept: true);
+            _ = Console.ReadKey(intercept: true);
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
@@ -133,12 +128,12 @@ namespace CITIES
             {
                 Map.PrintMapWithPoints(cities.Cities);
             }
-            catch (Exception ex) 
+            catch (Exception)
             {
-                
+                throw;
             }
             AnsiConsole.MarkupLine("[green]Нажмите любую клавишу для продолжения:[/]");
-            Console.ReadKey(intercept: true);
+            _ = Console.ReadKey(intercept: true);
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }

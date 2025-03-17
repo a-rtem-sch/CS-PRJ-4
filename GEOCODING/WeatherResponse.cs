@@ -30,7 +30,7 @@ namespace GEOCODING
             const string apiKey = "3ce9d787aec683c60bb7da29967b7656";
 
             string requestUri = $"https://api.openweathermap.org/data/2.5/weather?lat={latitude.ToString(CultureInfo.InvariantCulture)}&lon={longitude.ToString(CultureInfo.InvariantCulture)}&appid={apiKey}";
-            var response = GeocodingService.GetHttpClient.GetFromJsonAsync<WeatherResponse>(requestUri).GetAwaiter().GetResult();
+            WeatherResponse? response = GeocodingService.GetHttpClient.GetFromJsonAsync<WeatherResponse>(requestUri).GetAwaiter().GetResult();
             return response;
         }
         public static double KelvinToCelsius(double kelvin)

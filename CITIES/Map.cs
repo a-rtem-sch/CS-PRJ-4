@@ -15,8 +15,8 @@ namespace CITIES
 
 
         // Границы проекции Меркатора
-        private static readonly double[] XRange = { -20037508.34, 20037508.34 };
-        private static readonly double[] YRange = { -20048966.10, 20048966.10 };
+        private static readonly double[] XRange = [-20037508.34, 20037508.34];
+        private static readonly double[] YRange = [-20048966.10, 20048966.10];
 
 
 
@@ -24,13 +24,13 @@ namespace CITIES
         private static (int x, int y) LatLonToXY(double lat, double lon)
         {
             // Инициализация систем координат
-            var crsFrom = GeographicCoordinateSystem.WGS84; // WGS84 (широта/долгота)
-            var crsTo = ProjectedCoordinateSystem.WebMercator; // Web Mercator
+            GeographicCoordinateSystem crsFrom = GeographicCoordinateSystem.WGS84; // WGS84 (широта/долгота)
+            ProjectedCoordinateSystem crsTo = ProjectedCoordinateSystem.WebMercator; // Web Mercator
 
-            var transform = new CoordinateTransformationFactory().CreateFromCoordinateSystems(crsFrom, crsTo);
+            ICoordinateTransformation transform = new CoordinateTransformationFactory().CreateFromCoordinateSystems(crsFrom, crsTo);
 
             // Преобразование координат
-            var (x, y) = transform.MathTransform.Transform(lon, lat);
+            (double x, double y) = transform.MathTransform.Transform(lon, lat);
 
             // Нормализация координат в диапазоны
             double xPercent = (x - XRange[0]) / (XRange[1] - XRange[0]);
@@ -46,18 +46,15 @@ namespace CITIES
             // Проверка на выход за границы карты
             int topMargin = 10;
             int bottomMargin = 10;
-            if (mapY - topMargin < 0 || mapY > MapRows - bottomMargin)
-            {
-                throw new ArgumentException($"Координаты ({lat}, {lon}) выходят за пределы карты.");
-            }
-
-            return (mapX, mapY - topMargin);
+            return mapY - topMargin < 0 || mapY > MapRows - bottomMargin
+                ? throw new ArgumentException($"Координаты ({lat}, {lon}) выходят за пределы карты.")
+                : ((int x, int y))(mapX, mapY - topMargin);
         }
 
         // Инвертирование числа в диапазоне
         private static int InverseNumInRange(int num, int minNum, int maxNum)
         {
-            return (maxNum + minNum) - num;
+            return maxNum + minNum - num;
         }
 
         // Отображение карты с точками
@@ -65,12 +62,12 @@ namespace CITIES
         {
             string[] mapLines = WorldMap.Split('\n');
             int counter = 1;
-            foreach (var city in cities)
+            foreach (City city in cities)
             {
                 city.Marker = counter++.ToString();
                 try
                 {
-                    var (x, y) = LatLonToXY(city.Latitude, city.Longitude);
+                    (int x, int y) = LatLonToXY(city.Latitude, city.Longitude);
                     x += 8; // Смещение на 8 символов вправо
 
                     if (y >= 0 && y < mapLines.Length && x >= 0 && x + city.Marker.Length <= mapLines[y].Length)
@@ -93,12 +90,12 @@ namespace CITIES
 
 
             // Вывод карты с цветными маркерами
-            foreach (var line in mapLines)
+            foreach (string line in mapLines)
             {
                 for (int i = 0; i < line.Length; i++)
                 {
                     bool isMarker = false;
-                    foreach (var city in cities)
+                    foreach (City city in cities)
                     {
                         if (i + city.Marker.Length <= line.Length && line.Substring(i, city.Marker.Length) == city.Marker)
                         {

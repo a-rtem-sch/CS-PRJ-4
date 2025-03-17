@@ -10,20 +10,17 @@ namespace PARSING
     {
         public static (List<City> Cities, List<BadRecord> BadRecords) ImportCitiesFromCsv(string filePath)
         {
-            var badRecords = new List<BadRecord>();
-            var cities = new List<City>();
+            List<BadRecord> badRecords = [];
+            List<City> cities = [];
 
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            CsvConfiguration config = new (CultureInfo.InvariantCulture)
             {
-                BadDataFound = context =>
+                BadDataFound = context => badRecords.Add(new BadRecord
                 {
-                    badRecords.Add(new BadRecord
-                    {
-                        RawRecord = context.RawRecord,
-                        Field = context.Field,
-                        ErrorMessage = context.RawRecord ?? "Unknown error"
-                    });
-                },
+                    RawRecord = context.RawRecord,
+                    Field = context.Field,
+                    ErrorMessage = context.RawRecord ?? "Unknown error"
+                }),
                 MissingFieldFound = null, // Игнорируем отсутствующие поля
                 HeaderValidated = null,   // Игнорируем ошибки валидации заголовков
                 IgnoreBlankLines = true,
@@ -40,8 +37,8 @@ namespace PARSING
                 }
             };
 
-            using var reader = new StreamReader(filePath);
-            using var csv = new CsvReader(reader, config);
+            using StreamReader reader = new(filePath);
+            using CsvReader csv = new(reader, config);
 
             try
             {
@@ -63,8 +60,8 @@ namespace PARSING
         {
             List<City> cities = cityCollection.Cities;
 
-            using var writer = new StreamWriter(filePath);
-            using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            using StreamWriter writer = new(filePath);
+            using CsvWriter csv = new(writer, CultureInfo.InvariantCulture);
 
             csv.WriteRecords(cities);
         }
