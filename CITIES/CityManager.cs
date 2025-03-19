@@ -174,6 +174,11 @@ namespace CITIES
         // Удаление города
         public void DeleteCity()
         {
+            if (_cityCollection.Cities.Count == 0)
+            {
+                AnsiConsole.MarkupLine("[red]Список городов пуст.[/]");
+                return;
+            }
             List<string> cityNames = _cityCollection.Cities.Select(c => c.Name).ToList();
             cityNames.Add("Назад");
             string selectedCityName = AnsiConsole.Prompt(

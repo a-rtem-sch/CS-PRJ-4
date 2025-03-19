@@ -20,7 +20,7 @@ namespace GEOCODING
         /// <param name="latitude">очев</param>
         /// <param name="longitude">очев</param>
         /// <returns>асинхронную таску</returns>
-        public static NominatimReverseResponse ReverseGeocode(double latitude, double longitude)
+        public static NominatimReverseResponse? ReverseGeocode(double latitude, double longitude)
         {
             string requestUri = string.Format(
                 CultureInfo.InvariantCulture,
@@ -38,25 +38,25 @@ namespace GEOCODING
     /// </summary>
     public class NominatimReverseResponse
     {
-        public string Display_Name { get; set; }
-        public string Name { get; set; }
-        public AddressInfo Address { get; set; }
-        public string[] Boundingbox { get; set; }
+        public string? Display_Name { get; set; }
+        public string? Name { get; set; }
+        public AddressInfo? Address { get; set; }
+        public string[]? Boundingbox { get; set; }
     }
     /// <summary>
     /// Класс для сериализации
     /// </summary>
     public class AddressInfo
     {
-        public string Amenity { get; set; }
-        public string House_Number { get; set; }
-        public string Road { get; set; }
-        public string Suburb { get; set; }
-        public string Borough { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Postcode { get; set; }
-        public string Country { get; set; }
-        public string Country_Code { get; set; }
+        public string? Amenity { get; set; }
+        public string? House_Number { get; set; }
+        public string? Road { get; set; }
+        public string? Suburb { get; set; }
+        public string? Borough { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? Postcode { get; set; }
+        public string? Country { get; set; }
+        public string? Country_Code { get; set; }
     }
 }

@@ -14,10 +14,10 @@ namespace GEOCODING
     /// </summary>
     public class WeatherResponse
     {
-        public MainInfo Main { get; set; }
-        public Weather[] Weather { get; set; }
-        public WindInfo Wind { get; set; }
-        public CloudsInfo Clouds { get; set; }
+        public MainInfo? Main { get; set; }
+        public Weather[]? Weather { get; set; }
+        public WindInfo? Wind { get; set; }
+        public CloudsInfo? Clouds { get; set; }
 
         /// <summary>
         /// Запрос по апи
@@ -25,7 +25,7 @@ namespace GEOCODING
         /// <param name="latitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        public static WeatherResponse GetWeather(double latitude, double longitude)
+        public static WeatherResponse? GetWeather(double latitude, double longitude)
         {
             const string apiKey = "3ce9d787aec683c60bb7da29967b7656";
 
@@ -50,16 +50,16 @@ namespace GEOCODING
 
     public class Weather
     {
-        public string Description { get; set; } // Описание погоды (например, "ясно", "дождь")
+        public string? Description { get; set; } // Описание погоды (например, "ясно", "дождь")
     }
 
     public class WindInfo
     {
-        public double Speed { get; set; } // Скорость ветра в м/с
+        public double? Speed { get; set; } // Скорость ветра в м/с
     }
 
     public class CloudsInfo
     {
-        public int All { get; set; } // Облачность в процентах
+        public int? All { get; set; } // Облачность в процентах
     }
 }

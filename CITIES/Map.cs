@@ -99,9 +99,9 @@ namespace CITIES
                     {
                         if (i + city.Marker.Length <= line.Length && line.Substring(i, city.Marker.Length) == city.Marker)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red; // Устанавливаем цвет маркера
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write(city.Marker);
-                            Console.ResetColor(); // Возвращаем стандартный цвет
+                            Console.ResetColor();
                             i += city.Marker.Length - 1; // Пропускаем оставшиеся символы маркера
                             isMarker = true;
                             break;
@@ -110,10 +110,10 @@ namespace CITIES
 
                     if (!isMarker)
                     {
-                        Console.Write(line[i]); // Обычный символ карты
+                        Console.Write(line[i]);
                     }
                 }
-                Console.WriteLine(); // Переход на новую строку
+                Console.WriteLine();
             }
         }
 

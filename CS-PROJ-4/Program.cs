@@ -1,4 +1,7 @@
-﻿using CITIES;
+﻿// Щербаков Артём Юрьевич, БПИ-244-1, вар. 5 B-SIDE
+
+
+using CITIES;
 using PARSING;
 using Spectre.Console;
 using System.Text;
@@ -124,6 +127,7 @@ namespace CS_PROJ_4
                             AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
                             _ = Console.ReadKey(intercept: true);
                         }
+                        
                         break;
                     case "Сохранить":
                         try
@@ -137,6 +141,8 @@ namespace CS_PROJ_4
                             {
                                 CSVHandler.ExportCitiesToCsv(cityCollection, filePath);
                             }
+                            AnsiConsole.MarkupLine("[green]Данные успешно сохранены. \nНажмите любую клавишу для продолжения:[/]");
+                            _ = Console.ReadKey(intercept: true);
                         }
                         catch (Exception ex)
                         { 
@@ -145,6 +151,7 @@ namespace CS_PROJ_4
                             AnsiConsole.MarkupLine("[red]Нажмите любую клавишу для продолжения:[/]");
                             _ = Console.ReadKey(intercept: true);
                         }
+
                         break;
                     case "Выйти":
                         bool isConfirmed = AnsiConsole.Confirm("Вы уверены, что хотите выйти без автосохранения?");

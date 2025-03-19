@@ -36,6 +36,11 @@ namespace CITIES
             }
         }
 
+        /// <summary>
+        /// Не обрабатываю null так как строка запроса приходит из AnsiConsole
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public City GetCityByName(string name)
         {
             return Cities.FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
