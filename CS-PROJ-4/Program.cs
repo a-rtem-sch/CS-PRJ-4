@@ -164,6 +164,8 @@ namespace CS_PROJ_4
                         }
                         else
                         {
+                            Console.Clear();
+                            Console.WriteLine("\x1b[3J");
                             break;
                         }
 
